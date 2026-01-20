@@ -499,3 +499,4 @@ tmpclaude**
 
 # Auto Claude data directory
 .auto-claude/
+/.vscode
