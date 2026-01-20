@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FullStackHero .NET 10 Starter Kit - Documentação</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#8b5cf6',
+                        accent: '#10b981',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
+    <!-- Navegação Superior -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-code text-3xl text-primary"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">FullStackHero</h1>
+                        <p class="text-sm text-gray-600">.NET 10 Starter Kit</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="px-3 py-1 bg-primary text-white rounded-full text-sm font-semibold">v10.0.0-rc.1</span>
+                    <span class="px-3 py-1 bg-accent text-white rounded-full text-sm font-semibold">.NET 10</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-primary to-secondary text-white py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <h1 class="text-5xl font-bold mb-4">
+                    Tutorial Técnico Completo
+                </h1>
+                <p class="text-xl mb-8 opacity-90">
+                    Arquitetura Modular para APIs Multi-Tenant Enterprise
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#overview" class="bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
+                        <i class="fas fa-play mr-2"></i>Começar
+                    </a>
+                    <a href="visao-geral.html" class="bg-transparent border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary transition duration-300">
+                        <i class="fas fa-book mr-2"></i>Documentação
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visão Geral -->
+    <section id="overview" class="py-16">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">O que é o FullStackHero?</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Um framework modular e opinativo para construir APIs SaaS multi-tenant e aplicações enterprise com .NET 10
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition duration-300">
+                    <div class="text-primary text-4xl mb-4">
+                        <i class="fas fa-cubes"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Arquitetura Modular</h3>
+                    <p class="text-gray-600">
+                        Vertical slices com módulos independentes (Identity, Multitenancy, Auditing) que podem ser adicionados sob demanda
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition duration-300">
+                    <div class="text-secondary text-4xl mb-4">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Pronto para Produção</h3>
+                    <p class="text-gray-600">
+                        Cache distribuído, jobs, mailing, storage, health checks, OpenTelemetry e muito mais já configurados
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition duration-300">
+                    <div class="text-accent text-4xl mb-4">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800">Cloud-Ready</h3>
+                    <p class="text-gray-600">
+                        Aspire AppHost com PostgreSQL, Redis e tracing OTLP habilitado desde o início
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estrutura do Tutorial -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Estrutura da Documentação</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1: Visão Geral -->
+                <a href="visao-geral.html" class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 hover:shadow-xl transition duration-300 border-2 border-transparent hover:border-primary">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-primary text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold mr-4">
+                            1
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Visão Geral</h3>
+                    </div>
+                    <p class="text-gray-600">Arquitetura geral, stack tecnológica e princípios fundamentais do projeto</p>
+                </a>
+
+                <!-- Card 2: Building Blocks -->
+                <a href="building-blocks.html" class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 hover:shadow-xl transition duration-300 border-2 border-transparent hover:border-secondary">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-secondary text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold mr-4">
+                            2
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Building Blocks</h3>
+                    </div>
+                    <p class="text-gray-600">Componentes reutilizáveis: Core, Persistence, Caching, Jobs, Mailing e Storage</p>
+                </a>
+
+                <!-- Card 3: Módulos -->
+                <a href="modulos.html" class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 hover:shadow-xl transition duration-300 border-2 border-transparent hover:border-accent">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-accent text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold mr-4">
+                            3
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Módulos</h3>
+                    </div>
+                    <p class="text-gray-600">Identity (JWT/Auth), Multitenancy (Finbuckle) e Auditing em detalhe</p>
+                </a>
+
+                <!-- Card 4: Padrões de Código -->
+                <a href="padroes-codigo.html" class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-6 hover:shadow-xl transition duration-300 border-2 border-transparent hover:border-yellow-500">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-yellow-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold mr-4">
+                            4
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Padrões de Código</h3>
+                    </div>
+                    <p class="text-gray-600">CQRS, Mediator, Endpoints, Validators e estrutura de features</p>
+                </a>
+
+                <!-- Card 5: Configuração -->
+                <a href="configuracao.html" class="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-6 hover:shadow-xl transition duration-300 border-2 border-transparent hover:border-red-500">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-red-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold mr-4">
+                            5
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Configuração</h3>
+                    </div>
+                    <p class="text-gray-600">DatabaseOptions, CachingOptions, JWT, CORS e OpenTelemetry</p>
+                </a>
+
+                <!-- Card 6: Execução -->
+                <a href="execucao.html" class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-6 hover:shadow-xl transition duration-300 border-2 border-transparent hover:border-indigo-500">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold mr-4">
+                            6
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Execução</h3>
+                    </div>
+                    <p class="text-gray-600">Como executar com Aspire, standalone, testes e deploy</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recursos Principais -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Recursos Principais</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-shield-alt text-primary mr-3"></i>
+                        Segurança & Autenticação
+                    </h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><i class="fas fa-check text-accent mr-2"></i>ASP.NET Identity com JWT</li>
+                        <li><i class="fas fa-check text-accent mr-2"></i>Refresh tokens</li>
+                        <li><i class="fas fa-check text-accent mr-2"></i>Roles & Permissions</li>
+                        <li><i class="fas fa-check text-accent mr-2"></i>Rate limiting</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-database text-secondary mr-3"></i>
+                        Persistência de Dados
+                    </h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><i class="fas fa-check text-accent mr-2"></i>EF Core 10</li>
+                        <li><i class="fas fa-check text-accent mr-2"></i>PostgreSQL / SQL Server</li>
+                        <li><i class="fas fa-check text-accent mr-2"></i>Specifications pattern</li>
+                        <li><i class="fas fa-check text-accent mr-2"></i>Domain events</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-users text-accent mr-3"></i>
+                        Multi-Tenancy
+                    </h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><i class="fas fa-check text-accent mr-2"></i>Finbuckle MultiTenant</li>
+                        <li><i class="fas fa-check text-accent mr-2"></i>Isolamento de dados</li>
+                        <li><i class="fas fa-check text-accent mr-2"></i>Migrations automáticas</li>
+                        <li><i class="fas fa-check text-accent mr-2"></i>Tenant provisioning</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-chart-line text-yellow-500 mr-3"></i>
+                        Observabilidade
+                    </h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><i class="fas fa-check text-accent mr-2"></i>OpenTelemetry (traces/metrics/logs)</li>
+                        <li><i class="fas fa-check text-accent mr-2"></i>Serilog estruturado</li>
+                        <li><i class="fas fa-check text-accent mr-2"></i>Health checks</li>
+                        <li><i class="fas fa-check text-accent mr-2"></i>Auditing completo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start -->
+    <section class="py-16 bg-gradient-to-r from-primary to-secondary text-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-8">Quick Start</h2>
+            <div class="max-w-4xl mx-auto bg-gray-900 rounded-xl p-8">
+                <pre class="text-green-400 overflow-x-auto"><code># 1. Restore dependências
+dotnet restore src/FSH.Framework.slnx
+
+# 2. Executar com Aspire (Docker necessário para Postgres/Redis)
+dotnet run --project src/Playground/FSH.Playground.AppHost
+
+# 3. Acessar a API
+https://localhost:5285
+
+# 4. Executar testes
+dotnet test src/FSH.Framework.slnx</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold">FullStackHero</h3>
+                    <p class="text-gray-400">Documentação Técnica v10.0.0-rc.1</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://github.com/fullstackhero/dotnet-starter-kit" class="hover:text-primary transition duration-300">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                    <a href="https://fullstackhero.net" class="hover:text-primary transition duration-300">
+                        <i class="fas fa-globe text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-6 text-center text-gray-400 text-sm">
+                <p>Criado por Mukesh Murugan | MIT License</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

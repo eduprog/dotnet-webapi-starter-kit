@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Padrões de Código - FullStackHero .NET 10</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#8b5cf6',
+                        accent: '#10b981',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navegação -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center space-x-4">
+                    <i class="fas fa-code text-3xl text-primary"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">FullStackHero</h1>
+                        <p class="text-sm text-gray-600">Padrões de Código</p>
+                    </div>
+                </a>
+                <a href="index.html" class="text-primary hover:text-secondary transition duration-300">
+                    <i class="fas fa-home mr-2"></i>Voltar ao Início
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <div class="container mx-auto px-6 py-12">
+        <div class="max-w-5xl mx-auto">
+            <!-- Cabeçalho -->
+            <div class="bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-xl p-8 mb-8">
+                <h1 class="text-4xl font-bold mb-4">
+                    <i class="fas fa-code-branch mr-3"></i>Padrões de Código
+                </h1>
+                <p class="text-xl opacity-90">
+                    CQRS, Mediator, Endpoints e estruturação de features
+                </p>
+            </div>
+
+            <!-- CQRS Pattern -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-exchange-alt text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">CQRS Pattern</h2>
+                        <p class="text-gray-600">Command Query Responsibility Segregation</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-gray-700">
+                        <strong>CQRS</strong> é um padrão que separa operações de leitura (Queries) de operações de escrita (Commands). Isso permite otimizações específicas para cada tipo de operação.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="border-2 border-primary rounded-lg p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-pencil-alt text-primary mr-3"></i>Commands
+                            </h3>
+                            <p class="text-gray-700 mb-3">Alteram o estado do sistema</p>
+                            <ul class="space-y-2 text-sm text-gray-600">
+                                <li><i class="fas fa-check text-accent mr-2"></i>CreateProductCommand</li>
+                                <li><i class="fas fa-check text-accent mr-2"></i>UpdateUserCommand</li>
+                                <li><i class="fas fa-check text-accent mr-2"></i>DeleteOrderCommand</li>
+                                <li><i class="fas fa-check text-accent mr-2"></i>GenerateTokenCommand</li>
+                            </ul>
+                            <div class="mt-4 bg-blue-50 p-3 rounded">
+                                <code class="text-xs">ICommand&lt;TResponse&gt;</code>
+                            </div>
+                        </div>
+
+                        <div class="border-2 border-secondary rounded-lg p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-search text-secondary mr-3"></i>Queries
+                            </h3>
+                            <p class="text-gray-700 mb-3">Apenas leem dados, sem side-effects</p>
+                            <ul class="space-y-2 text-sm text-gray-600">
+                                <li><i class="fas fa-check text-accent mr-2"></i>GetProductByIdQuery</li>
+                                <li><i class="fas fa-check text-accent mr-2"></i>SearchUsersQuery</li>
+                                <li><i class="fas fa-check text-accent mr-2"></i>ListOrdersQuery</li>
+                                <li><i class="fas fa-check text-accent mr-2"></i>GetTenantStatusQuery</li>
+                            </ul>
+                            <div class="mt-4 bg-purple-50 p-3 rounded">
+                                <code class="text-xs">IQuery&lt;TResponse&gt;</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>Benefícios
+                        </h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• <strong>Separação de responsabilidades:</strong> Code escrita vs leitura totalmente desacoplados</li>
+                            <li>• <strong>Otimização independente:</strong> Queries podem usar views, Commands podem validar pesadamente</li>
+                            <li>• <strong>Escalabilidade:</strong> Read/write databases podem ser separados</li>
+                            <li>• <strong>Manutenibilidade:</strong> Cada operação é uma classe pequena e focada</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mediator Pattern -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-project-diagram text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Mediator Pattern</h2>
+                        <p class="text-gray-600">Desacoplamento via biblioteca Mediator</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-gray-700">
+                        O projeto usa a biblioteca <strong>Mediator</strong> (similar ao MediatR) para implementar CQRS. Handlers não são invocados diretamente, mas através do mediator.
+                    </p>
+
+                    <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                        <h4 class="text-white mb-3 font-semibold">Fluxo de Execução</h4>
+                        <pre><code>┌──────────┐        ┌──────────┐        ┌──────────────┐
+│ Endpoint │ ─────> │ Mediator │ ─────> │    Handler   │
+└──────────┘        └──────────┘        └──────────────┘
+     │                                          │
+     │                                          v
+     │                                   ┌──────────────┐
+     │                                   │  Validator   │
+     │                                   └──────────────┘
+     │                                          │
+     │                                          v
+     │                                   ┌──────────────┐
+     │                                   │  Repository  │
+     │                                   └──────────────┘
+     │                                          │
+     │<─────────────────────────────────────────┘
+     │
+     v
+┌──────────┐
+│ Response │
+└──────────┘</code></pre>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Anatomia de uma Feature</h3>
+                        <div class="space-y-4">
+                            <!-- Command -->
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-3 flex items-center">
+                                    <span class="bg-blue-500 text-white rounded px-2 py-1 text-sm mr-2">1</span>
+                                    Command / Query
+                                </h4>
+                                <div class="bg-gray-900 text-green-400 rounded p-4 overflow-x-auto">
+                                    <pre><code>// Define o contrato da operação
+public record CreateProductCommand(
+    string Name,
+    decimal Price,
+    string CategoryId
+) : ICommand&lt;ProductDto&gt;;</code></pre>
+                                </div>
+                            </div>
+
+                            <!-- Validator -->
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-3 flex items-center">
+                                    <span class="bg-blue-500 text-white rounded px-2 py-1 text-sm mr-2">2</span>
+                                    Validator (FluentValidation)
+                                </h4>
+                                <div class="bg-gray-900 text-green-400 rounded p-4 overflow-x-auto">
+                                    <pre><code>public class CreateProductValidator : AbstractValidator&lt;CreateProductCommand&gt;
+{
+    public CreateProductValidator()
+    {
+        RuleFor(x => x.Name)
+            .NotEmpty()
+            .MaximumLength(200);
+            
+        RuleFor(x => x.Price)
+            .GreaterThan(0);
+            
+        RuleFor(x => x.CategoryId)
+            .NotEmpty()
+            .Must(BeValidGuid).WithMessage("Invalid category ID");
+    }
+}</code></pre>
+                                </div>
+                            </div>
+
+                            <!-- Handler -->
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-3 flex items-center">
+                                    <span class="bg-blue-500 text-white rounded px-2 py-1 text-sm mr-2">3</span>
+                                    Handler (Lógica de negócio)
+                                </h4>
+                                <div class="bg-gray-900 text-green-400 rounded p-4 overflow-x-auto">
+                                    <pre><code>public class CreateProductHandler : ICommandHandler&lt;CreateProductCommand, ProductDto&gt;
+{
+    private readonly IRepository&lt;Product&gt; _repository;
+    private readonly IMapper _mapper;
+    
+    public CreateProductHandler(IRepository&lt;Product&gt; repository, IMapper mapper)
+    {
+        _repository = repository;
+        _mapper = mapper;
+    }
+    
+    public async ValueTask&lt;ProductDto&gt; Handle(
+        CreateProductCommand command, 
+        CancellationToken ct)
+    {
+        // Validação já foi executada pelo Mediator
+        
+        var product = new Product(command.Name, command.Price, command.CategoryId);
+        
+        await _repository.AddAsync(product, ct);
+        await _repository.SaveChangesAsync(ct);
+        
+        return _mapper.Map&lt;ProductDto&gt;(product);
+    }
+}</code></pre>
+                                </div>
+                            </div>
+
+                            <!-- Endpoint -->
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-3 flex items-center">
+                                    <span class="bg-blue-500 text-white rounded px-2 py-1 text-sm mr-2">4</span>
+                                    Endpoint (Minimal API)
+                                </h4>
+                                <div class="bg-gray-900 text-green-400 rounded p-4 overflow-x-auto">
+                                    <pre><code>public static class CreateProductEndpoint
+{
+    public static RouteHandlerBuilder MapCreateProductEndpoint(
+        this IEndpointRouteBuilder endpoints)
+    {
+        return endpoints.MapPost("/api/v1/products", 
+            async (CreateProductCommand command, IMediator mediator, CancellationToken ct) =>
+            {
+                var result = await mediator.Send(command, ct);
+                return TypedResults.Created($"/api/v1/products/{result.Id}", result);
+            })
+            .WithName("CreateProduct")
+            .WithTags("Products")
+            .WithSummary("Create a new product")
+            .Produces&lt;ProductDto&gt;(StatusCodes.Status201Created)
+            .ProducesValidationProblem()
+            .RequireAuthorization("products:create");
+    }
+}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Minimal APIs Pattern -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-route text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Minimal APIs</h2>
+                        <p class="text-gray-600">Endpoints leves e performáticos</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-gray-700">
+                        O projeto utiliza <strong>Minimal APIs</strong> ao invés de Controllers. Cada endpoint é uma extensão de <code>IEndpointRouteBuilder</code>.
+                    </p>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Padrão de Endpoint</h3>
+                        <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                            <pre><code>public static class {Feature}Endpoint
+{
+    public static RouteHandlerBuilder Map{Feature}Endpoint(
+        this IEndpointRouteBuilder endpoints)
+    {
+        return endpoints.Map{HttpMethod}("/api/v{version}/{route}",
+            async ({Parameters}, IMediator mediator, CancellationToken ct) =>
+            {
+                var result = await mediator.Send(new {Command/Query}(...), ct);
+                return TypedResults.{ResultType}(result);
+            })
+            .WithName("{FeatureName}")
+            .WithTags("{ModuleName}")
+            .WithSummary("{Description}")
+            .Produces&lt;{ResponseType}&gt;(StatusCodes.Status{Code})
+            .RequireAuthorization("{Policy}");  // Opcional
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Configurações Úteis</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-gray-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">Metadata</h4>
+                                <code class="text-xs block mb-2">.WithName("GetUser")</code>
+                                <code class="text-xs block mb-2">.WithTags("Users")</code>
+                                <code class="text-xs block mb-2">.WithSummary("Get user by ID")</code>
+                                <code class="text-xs block">.WithDescription("Returns...")</code>
+                            </div>
+
+                            <div class="bg-gray-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">Respostas</h4>
+                                <code class="text-xs block mb-2">.Produces&lt;UserDto&gt;(200)</code>
+                                <code class="text-xs block mb-2">.ProducesValidationProblem()</code>
+                                <code class="text-xs block mb-2">.ProducesProblem(404)</code>
+                                <code class="text-xs block">.ProducesProblem(500)</code>
+                            </div>
+
+                            <div class="bg-gray-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">Segurança</h4>
+                                <code class="text-xs block mb-2">.RequireAuthorization()</code>
+                                <code class="text-xs block mb-2">.RequireAuthorization("policy")</code>
+                                <code class="text-xs block mb-2">.AllowAnonymous()</code>
+                                <code class="text-xs block">.WithRateLimit("auth-limit")</code>
+                            </div>
+
+                            <div class="bg-gray-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">Versionamento</h4>
+                                <code class="text-xs block mb-2">.WithApiVersionSet()</code>
+                                <code class="text-xs block mb-2">.MapToApiVersion(1.0)</code>
+                                <code class="text-xs block">.HasDeprecatedApiVersion(1.0)</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 border-l-4 border-accent p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">
+                            <i class="fas fa-rocket text-accent mr-2"></i>Vantagens dos Minimal APIs
+                        </h4>
+                        <ul class="space-y-2 text-gray-700 text-sm">
+                            <li>• <strong>Performance:</strong> Menos overhead que Controllers</li>
+                            <li>• <strong>Simplicidade:</strong> Menos boilerplate, código mais limpo</li>
+                            <li>• <strong>Organização:</strong> Endpoints próximos aos handlers</li>
+                            <li>• <strong>Flexibilidade:</strong> Fácil customização por endpoint</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Repository & Specification -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-database text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Repository & Specification</h2>
+                        <p class="text-gray-600">Acesso a dados testável e reutilizável</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Repository Pattern</h3>
+                        <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                            <pre><code>public interface IRepository&lt;T&gt; where T : class
+{
+    // CRUD básico
+    Task&lt;T?&gt; GetByIdAsync(object id, CancellationToken ct = default);
+    Task&lt;List&lt;T&gt;&gt; ListAsync(CancellationToken ct = default);
+    Task&lt;T&gt; AddAsync(T entity, CancellationToken ct = default);
+    Task UpdateAsync(T entity, CancellationToken ct = default);
+    Task DeleteAsync(T entity, CancellationToken ct = default);
+    
+    // Com Specifications
+    Task&lt;T?&gt; FirstOrDefaultAsync(ISpecification&lt;T&gt; spec, CancellationToken ct = default);
+    Task&lt;List&lt;T&gt;&gt; ListAsync(ISpecification&lt;T&gt; spec, CancellationToken ct = default);
+    Task&lt;int&gt; CountAsync(ISpecification&lt;T&gt; spec, CancellationToken ct = default);
+    
+    Task SaveChangesAsync(CancellationToken ct = default);
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Specification Pattern</h3>
+                        <p class="text-gray-700 mb-4">
+                            Specifications encapsulam queries reutilizáveis e testáveis. Evita duplicação de lógica de queries.
+                        </p>
+
+                        <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                            <pre><code>// Definir uma specification
+public class ProductsByCategorySpec : Specification&lt;Product&gt;
+{
+    public ProductsByCategorySpec(string categoryId, bool includeInactive = false)
+    {
+        Query.Where(p => p.CategoryId == categoryId);
+        
+        if (!includeInactive)
+        {
+            Query.Where(p => p.IsActive);
+        }
+        
+        Query.Include(p => p.Category)
+             .OrderBy(p => p.Name);
+    }
+}
+
+// Specification com paginação
+public class ProductsPagedSpec : Specification&lt;Product&gt;
+{
+    public ProductsPagedSpec(int page, int pageSize, string? search = null)
+    {
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            Query.Search(p => p.Name, $"%{search}%");
+        }
+        
+        Query.Skip((page - 1) * pageSize)
+             .Take(pageSize)
+             .OrderBy(p => p.CreatedOn);
+    }
+}
+
+// Usar no handler
+var products = await _repository.ListAsync(
+    new ProductsByCategorySpec(categoryId), 
+    cancellationToken);
+
+var pagedProducts = await _repository.ListAsync(
+    new ProductsPagedSpec(page: 1, pageSize: 20, search: "laptop"),
+    cancellationToken);</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">
+                            <i class="fas fa-check-circle text-indigo-500 mr-2"></i>Benefícios das Specifications
+                        </h4>
+                        <ul class="space-y-2 text-gray-700 text-sm">
+                            <li>• Queries complexas são reutilizáveis em múltiplos handlers</li>
+                            <li>• Testáveis isoladamente (sem banco de dados)</li>
+                            <li>• Composable: specifications podem ser combinadas</li>
+                            <li>• Evita queries duplicadas espalhadas pelo código</li>
+                            <li>• Suporta Include, OrderBy, Pagination, Search out-of-the-box</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Domain Events -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-red-500 to-red-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-bolt text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Domain Events</h2>
+                        <p class="text-gray-600">Comunicação dentro do domínio</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-gray-700">
+                        Domain events permitem que entities notifiquem outras partes do sistema quando algo importante acontece, sem acoplamento direto.
+                    </p>
+
+                    <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                        <pre><code>// 1. Definir o evento
+public record OrderPlacedEvent(Guid OrderId, decimal TotalAmount) : IDomainEvent;
+
+// 2. Lançar o evento na entity
+public class Order : BaseEntity&lt;Guid&gt;
+{
+    public void Place()
+    {
+        Status = OrderStatus.Placed;
+        RaiseDomainEvent(new OrderPlacedEvent(Id, TotalAmount));
+    }
+}
+
+// 3. Handler do evento
+public class OrderPlacedEventHandler : IDomainEventHandler&lt;OrderPlacedEvent&gt;
+{
+    private readonly IMailService _mailService;
+    
+    public async Task Handle(OrderPlacedEvent @event, CancellationToken ct)
+    {
+        // Enviar email de confirmação
+        await _mailService.SendOrderConfirmationAsync(@event.OrderId, ct);
+        
+        // Atualizar inventory, etc.
+    }
+}
+
+// 4. Eventos são disparados automaticamente no SaveChanges
+// via interceptor no DbContext</code></pre>
+                    </div>
+
+                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">Eventos vs Integration Events</h4>
+                        <ul class="space-y-2 text-gray-700 text-sm">
+                            <li>
+                                <strong>Domain Events:</strong> Internos ao módulo, disparados no SaveChanges, síncronos
+                            </li>
+                            <li>
+                                <strong>Integration Events:</strong> Entre módulos/serviços, via event bus (RabbitMQ), assíncronos
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Estrutura de Feature Completa -->
+            <section class="bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-folder-open text-cyan-600 mr-3"></i>Estrutura Completa de uma Feature
+                </h2>
+
+                <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                    <pre><code>Features/v1/Products/CreateProduct/
+│
+├── CreateProductCommand.cs
+│   └── public record CreateProductCommand(...) : ICommand&lt;ProductDto&gt;;
+│
+├── CreateProductValidator.cs
+│   └── public class CreateProductValidator : AbstractValidator&lt;CreateProductCommand&gt;
+│
+├── CreateProductHandler.cs
+│   └── public class CreateProductHandler : ICommandHandler&lt;CreateProductCommand, ProductDto&gt;
+│       ├── Injeta: IRepository, IMapper, etc.
+│       └── Handle(): Lógica de negócio
+│
+└── CreateProductEndpoint.cs
+    └── public static RouteHandlerBuilder MapCreateProductEndpoint(...)
+        ├── Define rota: POST /api/v1/products
+        ├── Metadata: Tags, Summary, Authorization
+        └── Delega para mediator.Send(command)
+
+// Registrado automaticamente pelo ModuleLoader
+// quando IModule.MapEndpoints() é chamado</code></pre>
+                </div>
+            </section>
+
+            <!-- Navegação -->
+            <div class="flex justify-between items-center mt-12 pt-8 border-t border-gray-200">
+                <a href="modulos.html" class="flex items-center text-primary hover:text-secondary transition duration-300">
+                    <i class="fas fa-arrow-left mr-2"></i>Anterior: Módulos
+                </a>
+                <a href="configuracao.html" class="flex items-center text-primary hover:text-secondary transition duration-300">
+                    Próximo: Configuração<i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">FullStackHero .NET 10 Starter Kit - Documentação Técnica</p>
+        </div>
+    </footer>
+</body>
+</html>

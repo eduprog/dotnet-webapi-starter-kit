@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa do Site - FullStackHero .NET 10</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#8b5cf6',
+                        accent: '#10b981',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen py-12">
+    <div class="container mx-auto px-6">
+        <div class="max-w-6xl mx-auto">
+            <!-- Cabeçalho -->
+            <div class="text-center mb-12">
+                <h1 class="text-5xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-sitemap text-primary mr-3"></i>Mapa do Site
+                </h1>
+                <p class="text-xl text-gray-600">Navegação completa da documentação técnica</p>
+                <a href="index.html" class="inline-block mt-6 px-6 py-3 bg-primary text-white rounded-lg hover:bg-blue-600 transition duration-300">
+                    <i class="fas fa-home mr-2"></i>Ir para Página Inicial
+                </a>
+            </div>
+
+            <!-- Estrutura Visual -->
+            <div class="bg-white rounded-2xl shadow-2xl p-8">
+                <!-- Nível 1: Index -->
+                <div class="mb-8">
+                    <a href="index.html" class="block bg-gradient-to-r from-primary to-blue-600 text-white rounded-xl p-6 hover:shadow-lg transition duration-300 transform hover:scale-105">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fas fa-home text-3xl mr-4"></i>
+                                <div>
+                                    <h2 class="text-2xl font-bold">Página Inicial</h2>
+                                    <p class="opacity-90">Visão geral e navegação principal</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-arrow-right text-2xl"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Nível 2: Páginas Principais -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Visão Geral -->
+                    <div class="relative">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-px h-8 bg-gray-300"></div>
+                        <a href="visao-geral.html" class="block bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-primary rounded-xl p-6 hover:shadow-lg transition duration-300 transform hover:scale-105">
+                            <div class="text-center">
+                                <div class="bg-primary text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                                    1
+                                </div>
+                                <i class="fas fa-eye text-4xl text-primary mb-3"></i>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">Visão Geral</h3>
+                                <p class="text-sm text-gray-600 mb-4">Arquitetura, Stack e Princípios</p>
+                                <div class="text-xs text-gray-500 space-y-1">
+                                    <div>• Arquitetura Vertical Slice</div>
+                                    <div>• Stack Tecnológica</div>
+                                    <div>• Princípios DDD</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Building Blocks -->
+                    <div class="relative">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-px h-8 bg-gray-300"></div>
+                        <a href="building-blocks.html" class="block bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-secondary rounded-xl p-6 hover:shadow-lg transition duration-300 transform hover:scale-105">
+                            <div class="text-center">
+                                <div class="bg-secondary text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                                    2
+                                </div>
+                                <i class="fas fa-cubes text-4xl text-secondary mb-3"></i>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">Building Blocks</h3>
+                                <p class="text-sm text-gray-600 mb-4">Componentes Reutilizáveis</p>
+                                <div class="text-xs text-gray-500 space-y-1">
+                                    <div>• Core, Persistence, Caching</div>
+                                    <div>• Jobs, Mailing, Storage</div>
+                                    <div>• Web, Eventing</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Módulos -->
+                    <div class="relative">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-px h-8 bg-gray-300"></div>
+                        <a href="modulos.html" class="block bg-gradient-to-br from-green-50 to-green-100 border-2 border-accent rounded-xl p-6 hover:shadow-lg transition duration-300 transform hover:scale-105">
+                            <div class="text-center">
+                                <div class="bg-accent text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                                    3
+                                </div>
+                                <i class="fas fa-puzzle-piece text-4xl text-accent mb-3"></i>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">Módulos</h3>
+                                <p class="text-sm text-gray-600 mb-4">Features de Negócio</p>
+                                <div class="text-xs text-gray-500 space-y-1">
+                                    <div>• Identity (JWT/Auth)</div>
+                                    <div>• Multitenancy</div>
+                                    <div>• Auditing</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Padrões de Código -->
+                    <div class="relative">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-px h-8 bg-gray-300"></div>
+                        <a href="padroes-codigo.html" class="block bg-gradient-to-br from-yellow-50 to-yellow-100 border-2 border-yellow-500 rounded-xl p-6 hover:shadow-lg transition duration-300 transform hover:scale-105">
+                            <div class="text-center">
+                                <div class="bg-yellow-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                                    4
+                                </div>
+                                <i class="fas fa-code-branch text-4xl text-yellow-600 mb-3"></i>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">Padrões de Código</h3>
+                                <p class="text-sm text-gray-600 mb-4">CQRS, Mediator, APIs</p>
+                                <div class="text-xs text-gray-500 space-y-1">
+                                    <div>• CQRS Pattern</div>
+                                    <div>• Mediator Pattern</div>
+                                    <div>• Minimal APIs</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Configuração -->
+                    <div class="relative">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-px h-8 bg-gray-300"></div>
+                        <a href="configuracao.html" class="block bg-gradient-to-br from-red-50 to-red-100 border-2 border-red-500 rounded-xl p-6 hover:shadow-lg transition duration-300 transform hover:scale-105">
+                            <div class="text-center">
+                                <div class="bg-red-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                                    5
+                                </div>
+                                <i class="fas fa-cog text-4xl text-red-500 mb-3"></i>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">Configuração</h3>
+                                <p class="text-sm text-gray-600 mb-4">Settings e Options</p>
+                                <div class="text-xs text-gray-500 space-y-1">
+                                    <div>• Database, Cache, JWT</div>
+                                    <div>• CORS, OpenTelemetry</div>
+                                    <div>• Mail, Jobs, Storage</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Execução -->
+                    <div class="relative">
+                        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-px h-8 bg-gray-300"></div>
+                        <a href="execucao.html" class="block bg-gradient-to-br from-indigo-50 to-indigo-100 border-2 border-indigo-500 rounded-xl p-6 hover:shadow-lg transition duration-300 transform hover:scale-105">
+                            <div class="text-center">
+                                <div class="bg-indigo-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                                    6
+                                </div>
+                                <i class="fas fa-play-circle text-4xl text-indigo-500 mb-3"></i>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">Execução</h3>
+                                <p class="text-sm text-gray-600 mb-4">Run, Test, Deploy</p>
+                                <div class="text-xs text-gray-500 space-y-1">
+                                    <div>• Aspire & Standalone</div>
+                                    <div>• Testes e Build</div>
+                                    <div>• Docker e Terraform</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Informações Adicionais -->
+                <div class="mt-12 pt-8 border-t border-gray-200">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-6">
+                            <h3 class="text-lg font-bold text-gray-800 mb-3">
+                                <i class="fas fa-book text-primary mr-2"></i>Documentação Adicional
+                            </h3>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li>
+                                    <a href="README.md" class="hover:text-primary transition duration-300">
+                                        <i class="fas fa-file-alt mr-2"></i>README.md - Como usar a documentação
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../README.md" class="hover:text-primary transition duration-300">
+                                        <i class="fas fa-file-code mr-2"></i>README.md do projeto
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../CLAUDE.md" class="hover:text-primary transition duration-300">
+                                        <i class="fas fa-robot mr-2"></i>CLAUDE.md - Guia para AI
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6">
+                            <h3 class="text-lg font-bold text-gray-800 mb-3">
+                                <i class="fas fa-info-circle text-primary mr-2"></i>Sobre Esta Documentação
+                            </h3>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li><i class="fas fa-check text-accent mr-2"></i>Totalmente em Português (pt-BR)</li>
+                                <li><i class="fas fa-check text-accent mr-2"></i>Design responsivo com Tailwind CSS</li>
+                                <li><i class="fas fa-check text-accent mr-2"></i>Exemplos de código reais</li>
+                                <li><i class="fas fa-check text-accent mr-2"></i>Navegação intuitiva</li>
+                                <li><i class="fas fa-check text-accent mr-2"></i>Sem dependências de build</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rodapé com Estatísticas -->
+                <div class="mt-8 pt-6 border-t border-gray-200 text-center text-sm text-gray-600">
+                    <p class="mb-2">
+                        <strong>Total:</strong> 7 páginas HTML + 1 README.md
+                    </p>
+                    <p>
+                        <i class="fas fa-calendar-alt mr-2"></i>Última atualização: Janeiro 2026 
+                        <span class="mx-3">•</span>
+                        <i class="fas fa-code-branch mr-2"></i>Versão: 10.0.0-rc.1
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

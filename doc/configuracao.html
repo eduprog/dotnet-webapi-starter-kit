@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuração - FullStackHero .NET 10</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#8b5cf6',
+                        accent: '#10b981',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navegação -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center space-x-4">
+                    <i class="fas fa-code text-3xl text-primary"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">FullStackHero</h1>
+                        <p class="text-sm text-gray-600">Configuração</p>
+                    </div>
+                </a>
+                <a href="index.html" class="text-primary hover:text-secondary transition duration-300">
+                    <i class="fas fa-home mr-2"></i>Voltar ao Início
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <div class="container mx-auto px-6 py-12">
+        <div class="max-w-5xl mx-auto">
+            <!-- Cabeçalho -->
+            <div class="bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-xl p-8 mb-8">
+                <h1 class="text-4xl font-bold mb-4">
+                    <i class="fas fa-cog mr-3"></i>Configuração
+                </h1>
+                <p class="text-xl opacity-90">
+                    DatabaseOptions, Caching, JWT, CORS e OpenTelemetry
+                </p>
+            </div>
+
+            <!-- appsettings.json Overview -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-file-code text-primary mr-3"></i>appsettings.json
+                </h2>
+                <p class="text-gray-700 mb-4">
+                    Toda a configuração do framework é feita via <code class="bg-gray-100 px-2 py-1 rounded">appsettings.json</code> ou variáveis de ambiente. O projeto suporta múltiplos ambientes (Development, Staging, Production).
+                </p>
+
+                <div class="bg-blue-50 border-l-4 border-primary p-6 rounded-r-lg mb-6">
+                    <h4 class="font-bold text-gray-800 mb-2">Hierarquia de Configuração</h4>
+                    <ol class="text-sm text-gray-700 space-y-1">
+                        <li>1. <code>appsettings.json</code> (base)</li>
+                        <li>2. <code>appsettings.{Environment}.json</code> (sobrescreve base)</li>
+                        <li>3. Variáveis de ambiente (sobrescreve tudo)</li>
+                        <li>4. User secrets (desenvolvimento local)</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Database Options -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-database text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">DatabaseOptions</h2>
+                        <p class="text-gray-600">Configuração do banco de dados</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                        <pre><code>{
+  "DatabaseOptions": {
+    "Provider": "postgres",  // "postgres" ou "mssql"
+    "ConnectionString": "Host=localhost;Port=5432;Database=fsh_playground;Username=postgres;Password=postgres",
+    "MigrationsAssembly": "Migrations.PostgreSQL",
+    "CommandTimeout": 30,
+    "EnableDetailedErrors": true,  // Apenas em Development
+    "EnableSensitiveDataLogging": false  // NUNCA em Production
+  }
+}</code></pre>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Propriedades</h3>
+                        <div class="space-y-3">
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">Provider</h4>
+                                <p class="text-sm text-gray-600 mb-2">Define o provedor de banco de dados</p>
+                                <code class="text-xs bg-white px-2 py-1 rounded">postgres</code> ou 
+                                <code class="text-xs bg-white px-2 py-1 rounded ml-2">mssql</code>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">ConnectionString</h4>
+                                <p class="text-sm text-gray-600 mb-2">String de conexão com o banco</p>
+                                <p class="text-xs text-gray-500">⚠️ Use User Secrets ou env vars em produção, nunca commite senhas!</p>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">MigrationsAssembly</h4>
+                                <p class="text-sm text-gray-600">Assembly onde ficam as migrations consolidadas</p>
+                                <code class="text-xs bg-white px-2 py-1 rounded">Migrations.PostgreSQL</code> ou 
+                                <code class="text-xs bg-white px-2 py-1 rounded ml-2">Migrations.SqlServer</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">
+                            <i class="fas fa-exclamation-triangle text-yellow-500 mr-2"></i>Variáveis de Ambiente
+                        </h4>
+                        <p class="text-sm text-gray-700 mb-3">Sobrescrever via environment variables:</p>
+                        <div class="bg-gray-900 text-green-400 rounded p-3 text-xs overflow-x-auto">
+                            <code>DatabaseOptions__Provider=postgres</code><br>
+                            <code>DatabaseOptions__ConnectionString="Host=prod-db;..."</code>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Caching Options -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-red-500 to-red-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-bolt text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">CachingOptions</h2>
+                        <p class="text-gray-600">Redis e cache distribuído</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                        <pre><code>{
+  "CachingOptions": {
+    "Redis": "localhost:6379,password=your-redis-password",
+    "AbsoluteExpirationInMinutes": 60,
+    "SlidingExpirationInMinutes": 30,
+    "InstanceName": "FSH_"
+  }
+}</code></pre>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Propriedades</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">Redis</h4>
+                                <p class="text-sm text-gray-600">Connection string do Redis</p>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">AbsoluteExpiration</h4>
+                                <p class="text-sm text-gray-600">Tempo máximo no cache (minutos)</p>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">SlidingExpiration</h4>
+                                <p class="text-sm text-gray-600">Renova expiração se acessado</p>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">InstanceName</h4>
+                                <p class="text-sm text-gray-600">Prefixo para keys do Redis</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 border-l-4 border-primary p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">Redis com Docker</h4>
+                        <div class="bg-gray-900 text-green-400 rounded p-3 text-sm overflow-x-auto mt-3">
+                            <code>docker run -d -p 6379:6379 --name redis redis:alpine</code>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- JWT Options -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-key text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">JwtOptions</h2>
+                        <p class="text-gray-600">Autenticação JWT</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                        <pre><code>{
+  "JwtOptions": {
+    "SigningKey": "your-super-secret-signing-key-must-be-at-least-256-bits-long",
+    "Issuer": "https://fullstackhero.net",
+    "Audience": "https://fullstackhero.net",
+    "ExpirationMinutes": 60,
+    "RefreshTokenExpirationDays": 7
+  }
+}</code></pre>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Propriedades</h3>
+                        <div class="space-y-3">
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">SigningKey</h4>
+                                <p class="text-sm text-gray-600 mb-2">Chave secreta para assinar tokens (mínimo 256 bits)</p>
+                                <div class="bg-red-50 border-l-4 border-red-500 p-3 mt-2">
+                                    <p class="text-xs text-red-700">
+                                        <i class="fas fa-exclamation-triangle mr-1"></i>
+                                        <strong>CRÍTICO:</strong> Nunca commite esta chave no Git! Use User Secrets ou Azure Key Vault
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">Issuer & Audience</h4>
+                                <p class="text-sm text-gray-600">URLs da sua aplicação para validação do token</p>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">ExpirationMinutes</h4>
+                                <p class="text-sm text-gray-600">Tempo de vida do access token (60 min recomendado)</p>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">RefreshTokenExpirationDays</h4>
+                                <p class="text-sm text-gray-600">Tempo de vida do refresh token (7 dias recomendado)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-purple-50 border-l-4 border-secondary p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">Gerar SigningKey Segura</h4>
+                        <div class="bg-gray-900 text-green-400 rounded p-3 text-sm overflow-x-auto mt-3">
+                            <code># PowerShell<br>[Convert]::ToBase64String((1..64 | ForEach-Object { Get-Random -Maximum 256 }))</code>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CORS Options -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-globe text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">CorsOptions</h2>
+                        <p class="text-gray-600">Cross-Origin Resource Sharing</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                        <pre><code>{
+  "CorsOptions": {
+    "AllowedOrigins": [
+      "https://localhost:5001",
+      "https://app.fullstackhero.net"
+    ],
+    "AllowedMethods": ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    "AllowedHeaders": ["*"],
+    "AllowCredentials": true
+  }
+}</code></pre>
+                    </div>
+
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">
+                            <i class="fas fa-shield-alt text-yellow-500 mr-2"></i>Segurança CORS
+                        </h4>
+                        <ul class="text-sm text-gray-700 space-y-2">
+                            <li>• Nunca use <code class="bg-white px-2 py-1 rounded">"*"</code> em AllowedOrigins em produção</li>
+                            <li>• Liste explicitamente os domínios permitidos</li>
+                            <li>• AllowCredentials requer origins específicos</li>
+                            <li>• Valide origins em runtime se necessário</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- OpenTelemetry Options -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-cyan-500 to-cyan-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-chart-line text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">OpenTelemetry</h2>
+                        <p class="text-gray-600">Observabilidade e telemetria</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                        <pre><code>{
+  "OpenTelemetry": {
+    "ServiceName": "FSH.Playground.Api",
+    "ServiceVersion": "1.0.0",
+    "OtlpEndpoint": "http://localhost:4317",
+    "EnableTracing": true,
+    "EnableMetrics": true,
+    "EnableLogging": true
+  }
+}</code></pre>
+                    </div>
+
+                    <p class="text-gray-700">
+                        OpenTelemetry coleta <strong>traces</strong> (rastreamento de requisições), <strong>metrics</strong> (contadores, gauges) e <strong>logs</strong> estruturados, exportando via OTLP para backends como Jaeger, Zipkin ou Azure Monitor.
+                    </p>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">O que é Instrumentado</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-route text-primary mr-2"></i>HTTP Requests
+                                </h4>
+                                <p class="text-sm text-gray-600">Duração, status codes, endpoints</p>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-database text-accent mr-2"></i>EF Core Queries
+                                </h4>
+                                <p class="text-sm text-gray-600">Queries SQL, duração, conexões</p>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-bolt text-red-500 mr-2"></i>Redis Operations
+                                </h4>
+                                <p class="text-sm text-gray-600">Cache hits/misses, latência</p>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-server text-secondary mr-2"></i>Runtime Metrics
+                                </h4>
+                                <p class="text-sm text-gray-600">CPU, memória, GC, threads</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-cyan-50 border-l-4 border-cyan-500 p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">Visualizar com Jaeger (Docker)</h4>
+                        <div class="bg-gray-900 text-green-400 rounded p-3 text-sm overflow-x-auto mt-3">
+                            <code>docker run -d --name jaeger \<br>  -p 16686:16686 \<br>  -p 4317:4317 \<br>  jaegertracing/all-in-one:latest</code>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-3">Acesse: <code class="bg-white px-2 py-1 rounded">http://localhost:16686</code></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mailing & Hangfire -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Outras Configurações</h2>
+
+                <div class="space-y-6">
+                    <!-- Mailing -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-envelope text-indigo-500 mr-3"></i>MailOptions
+                        </h3>
+                        <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                            <pre><code>{
+  "MailOptions": {
+    "From": "noreply@fullstackhero.net",
+    "DisplayName": "FullStackHero",
+    "Host": "smtp.gmail.com",
+    "Port": 587,
+    "UserName": "your-email@gmail.com",
+    "Password": "your-app-specific-password",
+    "EnableSsl": true
+  }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Hangfire -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-clock text-yellow-500 mr-3"></i>HangfireOptions
+                        </h3>
+                        <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                            <pre><code>{
+  "HangfireOptions": {
+    "Storage": "postgres",  // "postgres", "mssql" ou "memory"
+    "ConnectionString": "...",  // Se null, usa DatabaseOptions
+    "DashboardEnabled": true,
+    "DashboardPath": "/jobs",
+    "DashboardUsername": "admin",
+    "DashboardPassword": "admin123",
+    "ServerName": "FSH-API-01",
+    "WorkerCount": 5
+  }
+}</code></pre>
+                        </div>
+                        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg mt-4">
+                            <p class="text-sm text-gray-700">
+                                <strong>Dashboard:</strong> Acessível em <code class="bg-white px-2 py-1 rounded">/jobs</code> (protegido por basic auth)
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Storage -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-folder text-pink-500 mr-3"></i>StorageOptions
+                        </h3>
+                        <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                            <pre><code>{
+  "StorageOptions": {
+    "Provider": "local",  // "local", "azure" ou "s3"
+    "LocalPath": "./uploads",
+    
+    // Se Azure
+    "AzureConnectionString": "...",
+    "AzureContainerName": "fsh-files",
+    
+    // Se S3
+    "S3AccessKey": "...",
+    "S3SecretKey": "...",
+    "S3BucketName": "fsh-files",
+    "S3Region": "us-east-1"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exemplo Completo -->
+            <section class="bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-file-code text-gray-700 mr-3"></i>appsettings.json Completo (Exemplo)
+                </h2>
+
+                <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto max-h-96">
+                    <pre class="text-xs"><code>{
+  "DatabaseOptions": {
+    "Provider": "postgres",
+    "ConnectionString": "Host=localhost;Database=fsh;Username=postgres;Password=postgres",
+    "MigrationsAssembly": "Migrations.PostgreSQL",
+    "CommandTimeout": 30,
+    "EnableDetailedErrors": true,
+    "EnableSensitiveDataLogging": false
+  },
+  
+  "CachingOptions": {
+    "Redis": "localhost:6379",
+    "AbsoluteExpirationInMinutes": 60,
+    "SlidingExpirationInMinutes": 30,
+    "InstanceName": "FSH_"
+  },
+  
+  "JwtOptions": {
+    "SigningKey": "your-256-bit-secret-key-here",
+    "Issuer": "https://api.fullstackhero.net",
+    "Audience": "https://api.fullstackhero.net",
+    "ExpirationMinutes": 60,
+    "RefreshTokenExpirationDays": 7
+  },
+  
+  "CorsOptions": {
+    "AllowedOrigins": ["https://localhost:5001", "https://app.fullstackhero.net"],
+    "AllowedMethods": ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    "AllowedHeaders": ["*"],
+    "AllowCredentials": true
+  },
+  
+  "OpenTelemetry": {
+    "ServiceName": "FSH.Playground.Api",
+    "ServiceVersion": "1.0.0",
+    "OtlpEndpoint": "http://localhost:4317",
+    "EnableTracing": true,
+    "EnableMetrics": true,
+    "EnableLogging": true
+  },
+  
+  "MailOptions": {
+    "From": "noreply@fullstackhero.net",
+    "DisplayName": "FullStackHero",
+    "Host": "smtp.gmail.com",
+    "Port": 587,
+    "UserName": "your-email@gmail.com",
+    "Password": "your-app-password",
+    "EnableSsl": true
+  },
+  
+  "HangfireOptions": {
+    "Storage": "postgres",
+    "DashboardEnabled": true,
+    "DashboardPath": "/jobs",
+    "DashboardUsername": "admin",
+    "DashboardPassword": "secure-password-here",
+    "WorkerCount": 5
+  },
+  
+  "StorageOptions": {
+    "Provider": "local",
+    "LocalPath": "./uploads"
+  },
+  
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Information",
+      "Override": {
+        "Microsoft": "Warning",
+        "System": "Warning"
+      }
+    }
+  }
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- Navegação -->
+            <div class="flex justify-between items-center mt-12 pt-8 border-t border-gray-200">
+                <a href="padroes-codigo.html" class="flex items-center text-primary hover:text-secondary transition duration-300">
+                    <i class="fas fa-arrow-left mr-2"></i>Anterior: Padrões de Código
+                </a>
+                <a href="execucao.html" class="flex items-center text-primary hover:text-secondary transition duration-300">
+                    Próximo: Execução<i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">FullStackHero .NET 10 Starter Kit - Documentação Técnica</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Execução - FullStackHero .NET 10</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#8b5cf6',
+                        accent: '#10b981',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navegação -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center space-x-4">
+                    <i class="fas fa-code text-3xl text-primary"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">FullStackHero</h1>
+                        <p class="text-sm text-gray-600">Execução</p>
+                    </div>
+                </a>
+                <a href="index.html" class="text-primary hover:text-secondary transition duration-300">
+                    <i class="fas fa-home mr-2"></i>Voltar ao Início
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <div class="container mx-auto px-6 py-12">
+        <div class="max-w-5xl mx-auto">
+            <!-- Cabeçalho -->
+            <div class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white rounded-xl p-8 mb-8">
+                <h1 class="text-4xl font-bold mb-4">
+                    <i class="fas fa-play-circle mr-3"></i>Execução
+                </h1>
+                <p class="text-xl opacity-90">
+                    Como executar, testar e fazer deploy do projeto
+                </p>
+            </div>
+
+            <!-- Pré-requisitos -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-list-check text-primary mr-3"></i>Pré-requisitos
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6">
+                        <h3 class="font-bold text-gray-800 mb-3 text-lg">
+                            <i class="fas fa-download text-primary mr-2"></i>Software Necessário
+                        </h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-accent mr-2 mt-1"></i>
+                                <div>
+                                    <strong>.NET 10 SDK</strong>
+                                    <p class="text-sm text-gray-600">Download: dotnet.microsoft.com</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-accent mr-2 mt-1"></i>
+                                <div>
+                                    <strong>Docker Desktop</strong>
+                                    <p class="text-sm text-gray-600">Para Postgres/Redis via Aspire</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-accent mr-2 mt-1"></i>
+                                <div>
+                                    <strong>.NET Aspire Workload</strong>
+                                    <p class="text-sm text-gray-600">
+                                        <code class="text-xs bg-white px-2 py-1 rounded">dotnet workload install aspire</code>
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-6">
+                        <h3 class="font-bold text-gray-800 mb-3 text-lg">
+                            <i class="fas fa-tools text-secondary mr-2"></i>Opcional
+                        </h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-xs text-gray-400 mr-2 mt-1.5"></i>
+                                <div>
+                                    <strong>VS Code ou Visual Studio</strong>
+                                    <p class="text-sm text-gray-600">IDEs recomendadas</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-xs text-gray-400 mr-2 mt-1.5"></i>
+                                <div>
+                                    <strong>PostgreSQL Client</strong>
+                                    <p class="text-sm text-gray-600">pgAdmin, DBeaver, etc.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-circle text-xs text-gray-400 mr-2 mt-1.5"></i>
+                                <div>
+                                    <strong>Postman ou Insomnia</strong>
+                                    <p class="text-sm text-gray-600">Para testar APIs</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Executar com Aspire -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-rocket text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Executar com .NET Aspire</h2>
+                        <p class="text-gray-600">Recomendado para desenvolvimento</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-gray-700">
+                        <strong>.NET Aspire</strong> é a maneira mais fácil de executar o projeto. Ele automaticamente:
+                    </p>
+
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-accent mr-3 mt-1"></i>
+                            <span>Inicia containers Docker para PostgreSQL e Redis</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-accent mr-3 mt-1"></i>
+                            <span>Configura connection strings automaticamente</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-accent mr-3 mt-1"></i>
+                            <span>Executa a API e o Blazor UI em paralelo</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-accent mr-3 mt-1"></i>
+                            <span>Habilita OpenTelemetry com exportação OTLP</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-accent mr-3 mt-1"></i>
+                            <span>Fornece um dashboard de monitoramento</span>
+                        </li>
+                    </ul>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Passo a Passo</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <span class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">1</span>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-gray-800 mb-2">Clonar o repositório</h4>
+                                    <div class="bg-gray-900 text-green-400 rounded p-4 overflow-x-auto">
+                                        <code>git clone https://github.com/fullstackhero/dotnet-starter-kit.git<br>cd dotnet-starter-kit</code>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <span class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">2</span>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-gray-800 mb-2">Restaurar dependências</h4>
+                                    <div class="bg-gray-900 text-green-400 rounded p-4 overflow-x-auto">
+                                        <code>dotnet restore src/FSH.Framework.slnx</code>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <span class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">3</span>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-gray-800 mb-2">Certificar que Docker está rodando</h4>
+                                    <div class="bg-gray-900 text-green-400 rounded p-4 overflow-x-auto">
+                                        <code>docker ps  # Deve retornar sem erro</code>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <span class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">4</span>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-gray-800 mb-2">Executar o AppHost</h4>
+                                    <div class="bg-gray-900 text-green-400 rounded p-4 overflow-x-auto">
+                                        <code>dotnet run --project src/Playground/FSH.Playground.AppHost</code>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mt-2">
+                                        Aguarde até ver mensagens indicando que todos os serviços estão rodando
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <span class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">5</span>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-gray-800 mb-2">Acessar os endpoints</h4>
+                                    <div class="grid md:grid-cols-2 gap-3 mt-3">
+                                        <a href="#" class="bg-blue-100 hover:bg-blue-200 rounded-lg p-3 transition duration-300">
+                                            <div class="font-bold text-gray-800">API</div>
+                                            <code class="text-sm text-blue-600">https://localhost:5285</code>
+                                        </a>
+                                        <a href="#" class="bg-purple-100 hover:bg-purple-200 rounded-lg p-3 transition duration-300">
+                                            <div class="font-bold text-gray-800">Blazor UI</div>
+                                            <code class="text-sm text-purple-600">https://localhost:5286</code>
+                                        </a>
+                                        <a href="#" class="bg-green-100 hover:bg-green-200 rounded-lg p-3 transition duration-300">
+                                            <div class="font-bold text-gray-800">Aspire Dashboard</div>
+                                            <code class="text-sm text-green-600">https://localhost:17XXX</code>
+                                        </a>
+                                        <a href="#" class="bg-yellow-100 hover:bg-yellow-200 rounded-lg p-3 transition duration-300">
+                                            <div class="font-bold text-gray-800">Hangfire</div>
+                                            <code class="text-sm text-yellow-600">https://localhost:5285/jobs</code>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 border-l-4 border-accent p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">
+                            <i class="fas fa-lightbulb text-accent mr-2"></i>Aspire Dashboard
+                        </h4>
+                        <p class="text-gray-700 text-sm">
+                            O dashboard do Aspire mostra logs, traces, métricas e health checks de todos os serviços em tempo real. É extremamente útil para debugging!
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Executar API Standalone -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-server text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Executar API Standalone</h2>
+                        <p class="text-gray-600">Sem Aspire (Docker/Postgres manual)</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Passo a Passo</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <span class="bg-secondary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">1</span>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-gray-800 mb-2">Iniciar PostgreSQL</h4>
+                                    <div class="bg-gray-900 text-green-400 rounded p-4 overflow-x-auto">
+                                        <code>docker run -d --name postgres \<br>  -e POSTGRES_PASSWORD=postgres \<br>  -e POSTGRES_DB=fsh \<br>  -p 5432:5432 \<br>  postgres:16-alpine</code>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <span class="bg-secondary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">2</span>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-gray-800 mb-2">Iniciar Redis</h4>
+                                    <div class="bg-gray-900 text-green-400 rounded p-4 overflow-x-auto">
+                                        <code>docker run -d --name redis \<br>  -p 6379:6379 \<br>  redis:alpine</code>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <span class="bg-secondary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">3</span>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-gray-800 mb-2">Configurar appsettings.Development.json</h4>
+                                    <div class="bg-gray-900 text-green-400 rounded p-4 overflow-x-auto">
+                                        <pre><code>{
+  "DatabaseOptions": {
+    "Provider": "postgres",
+    "ConnectionString": "Host=localhost;Port=5432;Database=fsh;Username=postgres;Password=postgres"
+  },
+  "CachingOptions": {
+    "Redis": "localhost:6379"
+  },
+  "JwtOptions": {
+    "SigningKey": "your-development-key-min-256-bits"
+  }
+}</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <span class="bg-secondary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-4 flex-shrink-0">4</span>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-gray-800 mb-2">Executar a API</h4>
+                                    <div class="bg-gray-900 text-green-400 rounded p-4 overflow-x-auto">
+                                        <code>dotnet run --project src/Playground/Playground.Api</code>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mt-2">
+                                        API disponível em: <code class="bg-gray-100 px-2 py-1 rounded">https://localhost:7030</code>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Executar Testes -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-vial text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Executar Testes</h2>
+                        <p class="text-gray-600">Unit tests, integration tests e architecture tests</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-gray-100 rounded-lg p-4">
+                            <h4 class="font-bold text-gray-800 mb-3">Todos os Testes</h4>
+                            <div class="bg-gray-900 text-green-400 rounded p-3 overflow-x-auto">
+                                <code class="text-sm">dotnet test src/FSH.Framework.slnx</code>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-100 rounded-lg p-4">
+                            <h4 class="font-bold text-gray-800 mb-3">Projeto Específico</h4>
+                            <div class="bg-gray-900 text-green-400 rounded p-3 overflow-x-auto">
+                                <code class="text-sm">dotnet test src/Tests/Identity.Tests</code>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-100 rounded-lg p-4">
+                            <h4 class="font-bold text-gray-800 mb-3">Com Cobertura</h4>
+                            <div class="bg-gray-900 text-green-400 rounded p-3 overflow-x-auto">
+                                <code class="text-sm">dotnet test --collect:"XPlat Code Coverage"</code>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-100 rounded-lg p-4">
+                            <h4 class="font-bold text-gray-800 mb-3">Teste Específico</h4>
+                            <div class="bg-gray-900 text-green-400 rounded p-3 overflow-x-auto">
+                                <code class="text-sm">dotnet test --filter "FullyQualifiedName~TestName"</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Tipos de Testes</h3>
+                        <div class="space-y-3">
+                            <div class="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg">
+                                <h4 class="font-bold text-gray-800 mb-1">Architecture Tests</h4>
+                                <p class="text-sm text-gray-600">
+                                    Valida regras arquiteturais (ex: Controllers não podem referenciar DbContext diretamente)
+                                </p>
+                            </div>
+
+                            <div class="border-l-4 border-green-500 bg-green-50 p-4 rounded-r-lg">
+                                <h4 class="font-bold text-gray-800 mb-1">Unit Tests</h4>
+                                <p class="text-sm text-gray-600">
+                                    Testa handlers, validators, domain logic isoladamente
+                                </p>
+                            </div>
+
+                            <div class="border-l-4 border-purple-500 bg-purple-50 p-4 rounded-r-lg">
+                                <h4 class="font-bold text-gray-800 mb-1">Integration Tests</h4>
+                                <p class="text-sm text-gray-600">
+                                    Testa endpoints completos com banco de dados em memória
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Build & Publish -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-red-500 to-red-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-hammer text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Build & Publish</h2>
+                        <p class="text-gray-600">Compilar e publicar para produção</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-3">Build (Debug)</h4>
+                            <div class="bg-gray-900 text-green-400 rounded p-4 overflow-x-auto">
+                                <code>dotnet build src/FSH.Framework.slnx</code>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-3">Build (Release)</h4>
+                            <div class="bg-gray-900 text-green-400 rounded p-4 overflow-x-auto">
+                                <code>dotnet build -c Release src/FSH.Framework.slnx</code>
+                            </div>
+                        </div>
+
+                        <div class="md:col-span-2">
+                            <h4 class="font-bold text-gray-800 mb-3">Publish (Ready for deployment)</h4>
+                            <div class="bg-gray-900 text-green-400 rounded p-4 overflow-x-auto">
+                                <code>dotnet publish src/Playground/Playground.Api -c Release -o ./publish</code>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">
+                                Arquivos publicados estarão em <code class="bg-gray-100 px-2 py-1 rounded">./publish</code>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>Validações de Produção
+                        </h4>
+                        <p class="text-sm text-gray-700 mb-3">
+                            O <code class="bg-white px-2 py-1 rounded">Program.cs</code> valida configurações críticas em produção:
+                        </p>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li>• DatabaseOptions:ConnectionString não pode estar vazio</li>
+                            <li>• CachingOptions:Redis deve estar configurado</li>
+                            <li>• JwtOptions:SigningKey é obrigatório</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Docker -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-cyan-500 to-cyan-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fab fa-docker text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Docker</h2>
+                        <p class="text-gray-600">Containerização da aplicação</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Build da Imagem</h3>
+                        <div class="bg-gray-900 text-green-400 rounded-lg p-4 overflow-x-auto">
+                            <code># Na raiz do projeto<br>docker build -t fsh-api:latest -f src/Playground/Playground.Api/Dockerfile .</code>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Executar Container</h3>
+                        <div class="bg-gray-900 text-green-400 rounded-lg p-4 overflow-x-auto">
+                            <code>docker run -d -p 8080:8080 \<br>  -e DatabaseOptions__ConnectionString="Host=host.docker.internal;..." \<br>  -e CachingOptions__Redis="host.docker.internal:6379" \<br>  -e JwtOptions__SigningKey="your-key" \<br>  fsh-api:latest</code>
+                        </div>
+                    </div>
+
+                    <div class="bg-cyan-50 border-l-4 border-cyan-500 p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">Docker Compose (Stack Completa)</h4>
+                        <p class="text-sm text-gray-700 mb-3">Você pode criar um <code>docker-compose.yml</code> com API + Postgres + Redis:</p>
+                        <div class="bg-gray-900 text-green-400 rounded p-3 text-xs overflow-x-auto max-h-64">
+                            <pre><code>version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: fsh
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+  api:
+    build: 
+      context: .
+      dockerfile: src/Playground/Playground.Api/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - DatabaseOptions__ConnectionString=Host=postgres;Database=fsh;...
+      - CachingOptions__Redis=redis:6379
+      - JwtOptions__SigningKey=your-key
+    depends_on:
+      - postgres
+      - redis
+
+volumes:
+  postgres_data:</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deploy (Terraform) -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-cloud-upload-alt text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Deploy (Terraform)</h2>
+                        <p class="text-gray-600">Infrastructure as Code para AWS</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-gray-700">
+                        O projeto inclui módulos Terraform para deploy na AWS (ECS, RDS Postgres, ElastiCache Redis, ALB).
+                    </p>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Estrutura Terraform</h3>
+                        <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                            <pre><code>terraform/
+├── modules/                    # Módulos reutilizáveis
+│   ├── network/               # VPC, subnets, security groups
+│   ├── ecs_cluster/           # ECS cluster
+│   ├── ecs_service/           # ECS service + task definition
+│   ├── rds_postgres/          # RDS PostgreSQL
+│   ├── elasticache_redis/     # ElastiCache Redis
+│   └── alb/                   # Application Load Balancer
+│
+├── apps/playground/           # Deployment do Playground
+│   └── envs/
+│       ├── dev/us-east-1/
+│       ├── staging/us-east-1/
+│       └── prod/us-east-1/
+│
+└── bootstrap/                 # Setup inicial AWS (S3 backend)</code></pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Deploy para AWS</h3>
+                        <div class="space-y-3">
+                            <div class="bg-gray-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">1. Bootstrap (primeira vez)</h4>
+                                <div class="bg-gray-900 text-green-400 rounded p-3 text-sm overflow-x-auto">
+                                    <code>cd terraform/bootstrap<br>terraform init<br>terraform apply</code>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">2. Deploy ambiente (dev/staging/prod)</h4>
+                                <div class="bg-gray-900 text-green-400 rounded p-3 text-sm overflow-x-auto">
+                                    <code>cd terraform/apps/playground/envs/dev/us-east-1<br>terraform init<br>terraform plan<br>terraform apply</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">
+                            <i class="fas fa-info-circle text-orange-500 mr-2"></i>O que é Criado
+                        </h4>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li>• VPC com subnets públicas e privadas</li>
+                            <li>• RDS PostgreSQL (Multi-AZ em produção)</li>
+                            <li>• ElastiCache Redis cluster</li>
+                            <li>• ECS Fargate cluster + service</li>
+                            <li>• Application Load Balancer com HTTPS</li>
+                            <li>• ECR repository para imagens Docker</li>
+                            <li>• CloudWatch logs & metrics</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Troubleshooting -->
+            <section class="bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-wrench text-gray-700 mr-3"></i>Troubleshooting
+                </h2>
+
+                <div class="space-y-4">
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-bold text-gray-800 mb-2">❌ Erro: "Unable to connect to database"</h4>
+                        <p class="text-sm text-gray-600 mb-2">
+                            <strong>Solução:</strong> Verifique se PostgreSQL está rodando e a connection string está correta
+                        </p>
+                        <code class="text-xs bg-gray-100 px-2 py-1 rounded">docker ps | grep postgres</code>
+                    </div>
+
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-bold text-gray-800 mb-2">❌ Erro: "Redis connection failed"</h4>
+                        <p class="text-sm text-gray-600 mb-2">
+                            <strong>Solução:</strong> Inicie Redis ou desabilite caching temporariamente
+                        </p>
+                        <code class="text-xs bg-gray-100 px-2 py-1 rounded">builder.AddHeroPlatform(o => o.EnableCaching = false);</code>
+                    </div>
+
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-bold text-gray-800 mb-2">❌ Erro: "JWT validation failed"</h4>
+                        <p class="text-sm text-gray-600 mb-2">
+                            <strong>Solução:</strong> Configure JwtOptions:SigningKey no appsettings
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-bold text-gray-800 mb-2">❌ Migrations não aplicam</h4>
+                        <p class="text-sm text-gray-600 mb-2">
+                            <strong>Solução:</strong> Delete o database e reinicie, ou execute migrations manualmente
+                        </p>
+                        <code class="text-xs bg-gray-100 px-2 py-1 rounded block mt-2">dotnet ef database update --project src/Playground/Migrations.PostgreSQL</code>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Comandos Úteis -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-terminal text-primary mr-3"></i>Comandos Úteis
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-gray-100 rounded-lg p-4">
+                        <h4 class="font-bold text-gray-800 mb-2">Limpar Build</h4>
+                        <code class="text-sm bg-white px-2 py-1 rounded block">dotnet clean</code>
+                    </div>
+
+                    <div class="bg-gray-100 rounded-lg p-4">
+                        <h4 class="font-bold text-gray-800 mb-2">Watch Mode (Auto-rebuild)</h4>
+                        <code class="text-sm bg-white px-2 py-1 rounded block">dotnet watch --project src/Playground/Playground.Api</code>
+                    </div>
+
+                    <div class="bg-gray-100 rounded-lg p-4">
+                        <h4 class="font-bold text-gray-800 mb-2">Gerar Migration</h4>
+                        <code class="text-sm bg-white px-2 py-1 rounded block">dotnet ef migrations add MigrationName --project Migrations.PostgreSQL</code>
+                    </div>
+
+                    <div class="bg-gray-100 rounded-lg p-4">
+                        <h4 class="font-bold text-gray-800 mb-2">Gerar Cliente C# do OpenAPI</h4>
+                        <code class="text-sm bg-white px-2 py-1 rounded block">./scripts/openapi/generate-api-clients.ps1</code>
+                    </div>
+
+                    <div class="bg-gray-100 rounded-lg p-4">
+                        <h4 class="font-bold text-gray-800 mb-2">Verificar Versão .NET</h4>
+                        <code class="text-sm bg-white px-2 py-1 rounded block">dotnet --version</code>
+                    </div>
+
+                    <div class="bg-gray-100 rounded-lg p-4">
+                        <h4 class="font-bold text-gray-800 mb-2">Listar Workloads Instalados</h4>
+                        <code class="text-sm bg-white px-2 py-1 rounded block">dotnet workload list</code>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navegação -->
+            <div class="flex justify-between items-center mt-12 pt-8 border-t border-gray-200">
+                <a href="configuracao.html" class="flex items-center text-primary hover:text-secondary transition duration-300">
+                    <i class="fas fa-arrow-left mr-2"></i>Anterior: Configuração
+                </a>
+                <a href="index.html" class="flex items-center text-primary hover:text-secondary transition duration-300">
+                    Voltar ao Início<i class="fas fa-home ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">FullStackHero .NET 10 Starter Kit - Documentação Técnica</p>
+            <p class="text-gray-500 text-sm mt-2">Documentação completa gerada com ❤️</p>
+        </div>
+    </footer>
+</body>
+</html>

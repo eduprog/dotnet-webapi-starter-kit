@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visão Geral - FullStackHero .NET 10</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#8b5cf6',
+                        accent: '#10b981',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navegação -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center space-x-4">
+                    <i class="fas fa-code text-3xl text-primary"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">FullStackHero</h1>
+                        <p class="text-sm text-gray-600">Visão Geral</p>
+                    </div>
+                </a>
+                <a href="index.html" class="text-primary hover:text-secondary transition duration-300">
+                    <i class="fas fa-home mr-2"></i>Voltar ao Início
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <div class="container mx-auto px-6 py-12">
+        <div class="max-w-5xl mx-auto">
+            <!-- Cabeçalho -->
+            <div class="bg-gradient-to-r from-primary to-secondary text-white rounded-xl p-8 mb-8">
+                <h1 class="text-4xl font-bold mb-4">
+                    <i class="fas fa-eye mr-3"></i>Visão Geral do Projeto
+                </h1>
+                <p class="text-xl opacity-90">
+                    Entenda a arquitetura, princípios e stack tecnológica do FullStackHero
+                </p>
+            </div>
+
+            <!-- O que é -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fas fa-info-circle text-primary mr-3"></i>O que é o FullStackHero?
+                </h2>
+                <p class="text-lg text-gray-700 mb-4">
+                    O <strong>FullStackHero .NET 10 Starter Kit</strong> é um framework modular e opinativo para construção de APIs SaaS multi-tenant e aplicações enterprise. Ele fornece uma base sólida com recursos prontos para produção, permitindo que equipes de desenvolvimento acelerem a entrega de projetos sem sacrificar qualidade arquitetural.
+                </p>
+                <div class="bg-blue-50 border-l-4 border-primary p-6 rounded-r-lg mb-4">
+                    <p class="text-gray-700">
+                        <strong>Filosofia:</strong> Production-first. Ao invés de começar do zero, você recebe módulos testados em batalha com Identity, Multitenancy, Auditing, caching, jobs, storage e observabilidade já configurados.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Arquitetura -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fas fa-sitemap text-secondary mr-3"></i>Arquitetura
+                </h2>
+                
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">Vertical Slice Architecture</h3>
+                <p class="text-gray-700 mb-4">
+                    O projeto adota <strong>Vertical Slice Architecture</strong> combinada com <strong>CQRS</strong> (Command Query Responsibility Segregation). Cada feature é auto-contida em seu próprio "slice" vertical:
+                </p>
+                
+                <div class="bg-gray-100 rounded-lg p-6 mb-6">
+                    <pre class="text-sm overflow-x-auto"><code>Features/v1/{Feature}/
+├── {Feature}Command.cs      (ou Query)
+├── {Feature}Handler.cs       (lógica de negócio)
+├── {Feature}Validator.cs     (FluentValidation)
+└── {Feature}Endpoint.cs      (Minimal API endpoint)</code></pre>
+                </div>
+
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4 mt-8">Camadas Principais</h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4">
+                        <h4 class="font-bold text-gray-800 mb-2">
+                            <i class="fas fa-cube text-primary mr-2"></i>Building Blocks
+                        </h4>
+                        <p class="text-sm text-gray-600">
+                            Componentes reutilizáveis (Core, Persistence, Caching, Jobs, Mailing, Storage, Web)
+                        </p>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4">
+                        <h4 class="font-bold text-gray-800 mb-2">
+                            <i class="fas fa-puzzle-piece text-secondary mr-2"></i>Modules
+                        </h4>
+                        <p class="text-sm text-gray-600">
+                            Features modulares (Identity, Multitenancy, Auditing) que podem ser plugadas em qualquer API
+                        </p>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4">
+                        <h4 class="font-bold text-gray-800 mb-2">
+                            <i class="fas fa-server text-accent mr-2"></i>Host (Playground)
+                        </h4>
+                        <p class="text-sm text-gray-600">
+                            Implementação de referência que consome os módulos e building blocks
+                        </p>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4 mt-8">Diagrama de Arquitetura</h3>
+                <div class="bg-gray-900 rounded-lg p-8 text-green-400 text-sm overflow-x-auto">
+                    <pre><code>┌─────────────────────────────────────────────────────────────────┐
+│                        Playground.Api (Host)                      │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │                   Program.cs                              │   │
+│  │  • AddHeroPlatform() → Building Blocks                    │   │
+│  │  • AddModules() → Carrega módulos                         │   │
+│  │  • UseHeroMultiTenantDatabases() → Migrations             │   │
+│  │  • UseHeroPlatform() → Endpoints + Middleware             │   │
+│  └──────────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+        ┌─────────────────────┴─────────────────────┐
+        │                                             │
+┌───────▼──────────┐                        ┌────────▼─────────┐
+│  Building Blocks  │                        │     Modules       │
+├───────────────────┤                        ├──────────────────┤
+│ • Core            │                        │ • Identity        │
+│ • Persistence     │                        │ • Multitenancy    │
+│ • Caching         │                        │ • Auditing        │
+│ • Jobs (Hangfire) │                        │                   │
+│ • Mailing         │                        │ Cada módulo:      │
+│ • Storage         │                        │  - IModule impl   │
+│ • Web             │                        │  - Features/v1/   │
+│ • Eventing        │                        │  - Contracts      │
+└───────────────────┘                        └──────────────────┘</code></pre>
+                </div>
+            </section>
+
+            <!-- Stack Tecnológica -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fas fa-layer-group text-accent mr-3"></i>Stack Tecnológica
+                </h2>
+
+                <div class="space-y-6">
+                    <!-- Backend -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-server text-primary mr-2"></i>Backend
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent mt-1"></i>
+                                <div>
+                                    <strong>.NET 10</strong> - Framework principal
+                                    <p class="text-sm text-gray-600">C# latest, nullable enabled, minimal APIs</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent mt-1"></i>
+                                <div>
+                                    <strong>Mediator</strong> - CQRS pattern
+                                    <p class="text-sm text-gray-600">Commands/Queries desacoplados</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent mt-1"></i>
+                                <div>
+                                    <strong>FluentValidation</strong> - Validação
+                                    <p class="text-sm text-gray-600">Regras de negócio declarativas</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent mt-1"></i>
+                                <div>
+                                    <strong>Mapster</strong> - Object mapping
+                                    <p class="text-sm text-gray-600">Performance superior ao AutoMapper</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dados -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-database text-secondary mr-2"></i>Persistência de Dados
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent mt-1"></i>
+                                <div>
+                                    <strong>Entity Framework Core 10</strong>
+                                    <p class="text-sm text-gray-600">ORM principal com domain events</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent mt-1"></i>
+                                <div>
+                                    <strong>PostgreSQL / SQL Server</strong>
+                                    <p class="text-sm text-gray-600">Bancos suportados (Postgres default)</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent mt-1"></i>
+                                <div>
+                                    <strong>Specification Pattern</strong>
+                                    <p class="text-sm text-gray-600">Queries reutilizáveis e testáveis</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent mt-1"></i>
+                                <div>
+                                    <strong>Finbuckle MultiTenant</strong>
+                                    <p class="text-sm text-gray-600">Multi-tenancy com EF Core</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Infraestrutura -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-cloud text-blue-500 mr-2"></i>Infraestrutura & DevOps
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent mt-1"></i>
+                                <div>
+                                    <strong>Redis</strong> - Distributed cache
+                                    <p class="text-sm text-gray-600">Caching de alta performance</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent mt-1"></i>
+                                <div>
+                                    <strong>Hangfire</strong> - Background jobs
+                                    <p class="text-sm text-gray-600">Jobs agendados e recorrentes</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent mt-1"></i>
+                                <div>
+                                    <strong>.NET Aspire</strong> - Orquestração
+                                    <p class="text-sm text-gray-600">AppHost para dev/test com containers</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent mt-1"></i>
+                                <div>
+                                    <strong>Terraform</strong> - IaC
+                                    <p class="text-sm text-gray-600">Deploy AWS (ECS, RDS, ElastiCache)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Observabilidade -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-chart-line text-yellow-500 mr-2"></i>Observabilidade
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent mt-1"></i>
+                                <div>
+                                    <strong>OpenTelemetry</strong>
+                                    <p class="text-sm text-gray-600">Traces, metrics e logs via OTLP</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent mt-1"></i>
+                                <div>
+                                    <strong>Serilog</strong>
+                                    <p class="text-sm text-gray-600">Logging estruturado</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent mt-1"></i>
+                                <div>
+                                    <strong>Health Checks</strong>
+                                    <p class="text-sm text-gray-600">Monitoramento de saúde da API</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent mt-1"></i>
+                                <div>
+                                    <strong>Auditing Module</strong>
+                                    <p class="text-sm text-gray-600">Security, exception e activity audit</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Princípios DDD -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fas fa-book text-primary mr-3"></i>Princípios de Design
+                </h2>
+
+                <div class="space-y-4">
+                    <div class="border-l-4 border-primary bg-blue-50 p-4 rounded-r-lg">
+                        <h3 class="font-bold text-gray-800 mb-2">
+                            <i class="fas fa-code-branch mr-2"></i>Domain-Driven Design (DDD)
+                        </h3>
+                        <p class="text-gray-700">
+                            Entities, Value Objects, Aggregates, Domain Events e Specifications para modelar o domínio de negócio
+                        </p>
+                    </div>
+
+                    <div class="border-l-4 border-secondary bg-purple-50 p-4 rounded-r-lg">
+                        <h3 class="font-bold text-gray-800 mb-2">
+                            <i class="fas fa-tasks mr-2"></i>CQRS (Command Query Responsibility Segregation)
+                        </h3>
+                        <p class="text-gray-700">
+                            Separação clara entre comandos (escrita) e queries (leitura) usando Mediator pattern
+                        </p>
+                    </div>
+
+                    <div class="border-l-4 border-accent bg-green-50 p-4 rounded-r-lg">
+                        <h3 class="font-bold text-gray-800 mb-2">
+                            <i class="fas fa-plug mr-2"></i>Dependency Injection & IoC
+                        </h3>
+                        <p class="text-gray-700">
+                            Inversão de controle com Microsoft.Extensions.DependencyInjection para baixo acoplamento
+                        </p>
+                    </div>
+
+                    <div class="border-l-4 border-yellow-500 bg-yellow-50 p-4 rounded-r-lg">
+                        <h3 class="font-bold text-gray-800 mb-2">
+                            <i class="fas fa-shield-alt mr-2"></i>Clean Architecture
+                        </h3>
+                        <p class="text-gray-700">
+                            Dependências apontam para dentro: Domain → Application → Infrastructure → Presentation
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Estrutura de Diretórios -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fas fa-folder-tree text-secondary mr-3"></i>Estrutura de Diretórios
+                </h2>
+
+                <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                    <pre><code>src/
+├── BuildingBlocks/          # Componentes reutilizáveis (NuGets)
+│   ├── Core/                # DDD primitives, exceptions, abstractions
+│   ├── Persistence/         # EF Core + specifications + migrations
+│   ├── Caching/             # Redis distributed cache
+│   ├── Jobs/                # Hangfire background jobs
+│   ├── Mailing/             # MailKit email service
+│   ├── Storage/             # File storage abstractions
+│   ├── Web/                 # Auth, CORS, rate limiting, OpenAPI, OTel
+│   └── Eventing/            # Event bus (RabbitMQ / InMemory)
+│
+├── Modules/                 # Features modulares (NuGets)
+│   ├── Identity/            # ASP.NET Identity + JWT
+│   │   ├── Features/v1/     # Endpoints organizados por feature
+│   │   ├── Persistence/     # IdentityDbContext
+│   │   └── Contracts/       # DTOs públicos
+│   ├── Multitenancy/        # Finbuckle tenant management
+│   └── Auditing/            # Security/exception/activity audit
+│
+├── Playground/              # Implementação de referência
+│   ├── FSH.Playground.AppHost/   # Aspire orchestration
+│   ├── Playground.Api/           # Host API
+│   ├── Playground.Blazor/        # Blazor WASM UI
+│   └── Migrations.PostgreSQL/    # Migrations consolidadas
+│
+└── Tests/
+    ├── Architecture.Tests/  # NetArchTest rules
+    ├── Identity.Tests/      # Unit tests Identity
+    ├── Multitenancy.Tests/
+    └── Auditing.Tests/</code></pre>
+                </div>
+            </section>
+
+            <!-- Navegação -->
+            <div class="flex justify-between items-center mt-12 pt-8 border-t border-gray-200">
+                <a href="index.html" class="flex items-center text-primary hover:text-secondary transition duration-300">
+                    <i class="fas fa-arrow-left mr-2"></i>Voltar ao Início
+                </a>
+                <a href="building-blocks.html" class="flex items-center text-primary hover:text-secondary transition duration-300">
+                    Próximo: Building Blocks<i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">FullStackHero .NET 10 Starter Kit - Documentação Técnica</p>
+        </div>
+    </footer>
+</body>
+</html>

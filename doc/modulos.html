@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulos - FullStackHero .NET 10</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#8b5cf6',
+                        accent: '#10b981',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navegação -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center space-x-4">
+                    <i class="fas fa-code text-3xl text-primary"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">FullStackHero</h1>
+                        <p class="text-sm text-gray-600">Módulos</p>
+                    </div>
+                </a>
+                <a href="index.html" class="text-primary hover:text-secondary transition duration-300">
+                    <i class="fas fa-home mr-2"></i>Voltar ao Início
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <div class="container mx-auto px-6 py-12">
+        <div class="max-w-5xl mx-auto">
+            <!-- Cabeçalho -->
+            <div class="bg-gradient-to-r from-accent to-green-600 text-white rounded-xl p-8 mb-8">
+                <h1 class="text-4xl font-bold mb-4">
+                    <i class="fas fa-puzzle-piece mr-3"></i>Módulos
+                </h1>
+                <p class="text-xl opacity-90">
+                    Features modulares: Identity, Multitenancy e Auditing
+                </p>
+            </div>
+
+            <!-- Introdução -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">O que são Módulos?</h2>
+                <p class="text-lg text-gray-700 mb-4">
+                    Módulos são <strong>features auto-contidas</strong> que implementam funcionalidades específicas de negócio. Cada módulo é um pacote NuGet independente que pode ser "plugado" em qualquer API através da interface <code class="bg-gray-100 px-2 py-1 rounded">IModule</code>.
+                </p>
+
+                <div class="bg-green-50 border-l-4 border-accent p-6 rounded-r-lg mb-6">
+                    <p class="text-gray-700">
+                        <i class="fas fa-lightbulb text-accent mr-2"></i>
+                        <strong>Arquitetura Plugável:</strong> Cada módulo registra seus próprios serviços via <code>ConfigureServices()</code> e mapeia seus endpoints via <code>MapEndpoints()</code>.
+                    </p>
+                </div>
+
+                <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                    <h4 class="text-white mb-3 font-semibold">Interface IModule</h4>
+                    <pre><code>public interface IModule
+{
+    string Name { get; }
+    void ConfigureServices(IHostApplicationBuilder builder);
+    void MapEndpoints(IEndpointRouteBuilder endpoints);
+}
+
+// Exemplo de uso no Program.cs
+builder.AddModules(new[] {
+    typeof(IdentityModule).Assembly,
+    typeof(MultitenancyModule).Assembly,
+    typeof(AuditingModule).Assembly
+});
+
+app.UseHeroPlatform(p => p.MapModules = true);</code></pre>
+                </div>
+            </section>
+
+            <!-- Identity Module -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8" id="identity">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-user-shield text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Identity Module</h2>
+                        <p class="text-gray-600">ASP.NET Identity + JWT Authentication</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-gray-700">
+                        Módulo completo de autenticação e autorização baseado em <strong>ASP.NET Core Identity</strong> com emissão de JWT tokens.
+                    </p>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Funcionalidades Principais</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-key text-primary mr-2"></i>Token Generation
+                                </h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Login com email/senha</li>
+                                    <li>• Geração de access token JWT</li>
+                                    <li>• Refresh tokens persistidos</li>
+                                    <li>• Rate limiting nos endpoints de auth</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-users text-secondary mr-2"></i>User Management
+                                </h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Registro de usuários</li>
+                                    <li>• Confirmação de email</li>
+                                    <li>• Reset de senha</li>
+                                    <li>• Atualização de perfil</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-user-tag text-accent mr-2"></i>Roles & Permissions
+                                </h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Gestão de roles (Admin, User, etc.)</li>
+                                    <li>• Permissions granulares</li>
+                                    <li>• Atribuição role ↔ user</li>
+                                    <li>• Claims customizados</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-image text-yellow-600 mr-2"></i>Profile Images
+                                </h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Upload de foto de perfil</li>
+                                    <li>• Storage abstraction (local/cloud)</li>
+                                    <li>• Servir imagens via endpoint</li>
+                                    <li>• Validação de tamanho/tipo</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Estrutura de Features</h3>
+                        <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                            <pre><code>Modules/Identity/
+├── Features/v1/
+│   ├── Tokens/
+│   │   ├── TokenGeneration/
+│   │   │   ├── GenerateTokenCommand.cs
+│   │   │   ├── GenerateTokenHandler.cs
+│   │   │   ├── GenerateTokenValidator.cs
+│   │   │   └── GenerateTokenEndpoint.cs
+│   │   └── RefreshToken/
+│   ├── Users/
+│   │   ├── RegisterUser/
+│   │   ├── GetUserProfile/
+│   │   ├── UpdateProfile/
+│   │   └── UploadProfileImage/
+│   ├── Roles/
+│   │   ├── CreateRole/
+│   │   ├── GetRoles/
+│   │   └── AssignRoleToUser/
+│   └── Permissions/
+├── Persistence/
+│   ├── IdentityDbContext.cs
+│   └── Configurations/
+├── Contracts/v1/           # DTOs públicos
+└── IdentityModule.cs       # IModule implementation</code></pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Exemplo: Login Endpoint</h3>
+                        <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                            <pre><code>// POST /api/v1/tokens
+public record GenerateTokenCommand(string Email, string Password) : ICommand&lt;TokenResponse&gt;;
+
+public class GenerateTokenHandler : ICommandHandler&lt;GenerateTokenCommand, TokenResponse&gt;
+{
+    private readonly UserManager&lt;ApplicationUser&gt; _userManager;
+    private readonly IJwtTokenGenerator _tokenGenerator;
+    
+    public async ValueTask&lt;TokenResponse&gt; Handle(GenerateTokenCommand command, CancellationToken ct)
+    {
+        var user = await _userManager.FindByEmailAsync(command.Email);
+        if (user is null || !await _userManager.CheckPasswordAsync(user, command.Password))
+        {
+            throw new UnauthorizedException("Invalid credentials");
+        }
+        
+        var token = await _tokenGenerator.GenerateTokenAsync(user);
+        return new TokenResponse(token.AccessToken, token.RefreshToken, token.ExpiresIn);
+    }
+}
+
+// Endpoint mapping
+public static RouteHandlerBuilder MapGenerateTokenEndpoint(this IEndpointRouteBuilder endpoints)
+{
+    return endpoints.MapPost("/api/v1/tokens", async (GenerateTokenCommand command, IMediator mediator) =>
+    {
+        var result = await mediator.Send(command);
+        return TypedResults.Ok(result);
+    })
+    .WithTags("Tokens")
+    .AllowAnonymous()
+    .WithRateLimit("auth-limit");  // 5 requests per minute
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 border-l-4 border-primary p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-3">Configuração JWT</h4>
+                        <pre class="text-sm bg-white p-4 rounded overflow-x-auto"><code>{
+  "JwtOptions": {
+    "SigningKey": "your-super-secret-key-min-256-bits",
+    "Issuer": "https://fullstackhero.net",
+    "Audience": "https://fullstackhero.net",
+    "ExpirationMinutes": 60,
+    "RefreshTokenExpirationDays": 7
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Multitenancy Module -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8" id="multitenancy">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-building text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Multitenancy Module</h2>
+                        <p class="text-gray-600">Finbuckle MultiTenant para isolamento de dados</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-gray-700">
+                        Módulo de multi-tenancy baseado em <strong>Finbuckle.MultiTenant</strong> que permite isolamento completo de dados entre tenants (clientes/organizações).
+                    </p>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Características</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-database text-primary mr-2"></i>Database per Tenant
+                                </h4>
+                                <p class="text-sm text-gray-600">
+                                    Cada tenant tem seu próprio database schema isolado
+                                </p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-sync text-secondary mr-2"></i>Auto Migrations
+                                </h4>
+                                <p class="text-sm text-gray-600">
+                                    Migrations aplicadas automaticamente na inicialização
+                                </p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-network-wired text-accent mr-2"></i>Tenant Resolution
+                                </h4>
+                                <p class="text-sm text-gray-600">
+                                    Resolução via header, subdomain ou route value
+                                </p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-cog text-yellow-600 mr-2"></i>Provisioning
+                                </h4>
+                                <p class="text-sm text-gray-600">
+                                    API para criar, ativar, desativar e deletar tenants
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Como Funciona</h3>
+                        <div class="bg-gray-100 rounded-lg p-6">
+                            <ol class="space-y-3">
+                                <li class="flex items-start">
+                                    <span class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">1</span>
+                                    <div>
+                                        <strong>Request chega com tenant identifier</strong>
+                                        <p class="text-sm text-gray-600">Ex: Header <code>X-Tenant: acme-corp</code></p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">2</span>
+                                    <div>
+                                        <strong>Middleware resolve o TenantInfo</strong>
+                                        <p class="text-sm text-gray-600">Busca informações do tenant (connection string, configurações)</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">3</span>
+                                    <div>
+                                        <strong>DbContext é configurado dinamicamente</strong>
+                                        <p class="text-sm text-gray-600">Connection string aponta para o database do tenant</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-primary text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">4</span>
+                                    <div>
+                                        <strong>Queries são isoladas automaticamente</strong>
+                                        <p class="text-sm text-gray-600">Dados de um tenant nunca vazam para outro</p>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Endpoints Principais</h3>
+                        <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                            <pre><code>// POST /api/v1/tenants - Criar novo tenant
+{
+  "identifier": "acme-corp",
+  "name": "Acme Corporation",
+  "email": "admin@acme.com",
+  "connectionString": "Host=localhost;Database=fsh_acme;..."
+}
+
+// GET /api/v1/tenants/{identifier}/status - Status do tenant
+{
+  "identifier": "acme-corp",
+  "isActive": true,
+  "databaseExists": true,
+  "pendingMigrations": []
+}
+
+// PUT /api/v1/tenants/{identifier}/activate - Ativar tenant
+// PUT /api/v1/tenants/{identifier}/deactivate - Desativar tenant
+// DELETE /api/v1/tenants/{identifier} - Deletar tenant</code></pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Configuração do DbContext</h3>
+                        <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                            <pre><code>// DbContext multi-tenant
+public class MyModuleDbContext : FshDbContext
+{
+    public MyModuleDbContext(DbContextOptions&lt;MyModuleDbContext&gt; options)
+        : base(options)
+    {
+    }
+    
+    public DbSet&lt;Product&gt; Products => Set&lt;Product&gt;();
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        
+        // Configurações multi-tenant são herdadas de FshDbContext
+        modelBuilder.Entity&lt;Product&gt;().IsMultiTenant();
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="bg-purple-50 border-l-4 border-secondary p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">
+                            <i class="fas fa-info-circle text-secondary mr-2"></i>Migrações Multi-Tenant
+                        </h4>
+                        <p class="text-gray-700 mb-3">
+                            O método <code class="bg-white px-2 py-1 rounded">UseHeroMultiTenantDatabases()</code> garante que:
+                        </p>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li>• Todos os tenants ativos tenham suas databases criadas</li>
+                            <li>• Pending migrations sejam aplicadas automaticamente</li>
+                            <li>• Seeders sejam executados se necessário</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Auditing Module -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8" id="auditing">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-clipboard-list text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Auditing Module</h2>
+                        <p class="text-gray-600">Auditoria de segurança, exceções e atividades</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-gray-700">
+                        Módulo de auditoria que registra eventos de segurança, exceções e atividades do usuário em um trail persistente e consultável.
+                    </p>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Tipos de Auditoria</h3>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-lg p-4">
+                                <div class="text-center mb-3">
+                                    <i class="fas fa-shield-alt text-4xl text-red-500"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-800 mb-2 text-center">Security Audit</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Login attempts (success/fail)</li>
+                                    <li>• Logout events</li>
+                                    <li>• Password changes</li>
+                                    <li>• Role assignments</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-lg p-4">
+                                <div class="text-center mb-3">
+                                    <i class="fas fa-exclamation-triangle text-4xl text-yellow-600"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-800 mb-2 text-center">Exception Audit</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Unhandled exceptions</li>
+                                    <li>• Stack traces</li>
+                                    <li>• Request context</li>
+                                    <li>• User information</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4">
+                                <div class="text-center mb-3">
+                                    <i class="fas fa-history text-4xl text-blue-500"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-800 mb-2 text-center">Activity Audit</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• CRUD operations</li>
+                                    <li>• Business actions</li>
+                                    <li>• Data changes (before/after)</li>
+                                    <li>• Custom events</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Estrutura do Audit Trail</h3>
+                        <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                            <pre><code>public class AuditEntry
+{
+    public Guid Id { get; set; }
+    public string UserId { get; set; }          // Quem fez
+    public string Type { get; set; }            // Security/Exception/Activity
+    public string Action { get; set; }          // Login, Create, Update, etc.
+    public string Entity { get; set; }          // Entidade afetada
+    public string EntityId { get; set; }        // ID da entidade
+    public string OldValues { get; set; }       // JSON estado anterior
+    public string NewValues { get; set; }       // JSON novo estado
+    public string IpAddress { get; set; }       // IP do usuário
+    public string UserAgent { get; set; }       // Browser/client
+    public DateTime Timestamp { get; set; }     // Quando
+    public string TenantId { get; set; }        // Multi-tenant aware
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Registro Automático</h3>
+                        <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                            <pre><code>// Auditoria automática via SaveChanges interceptor
+protected override async Task&lt;int&gt; SaveChangesAsync(CancellationToken ct)
+{
+    // Detecta mudanças nas entidades
+    var auditEntries = OnBeforeSaveChanges();
+    
+    var result = await base.SaveChangesAsync(ct);
+    
+    // Registra audit trail
+    await OnAfterSaveChangesAsync(auditEntries, ct);
+    
+    return result;
+}
+
+// Auditoria manual
+await _auditService.LogAsync(new AuditEntry
+{
+    Type = "Security",
+    Action = "Login",
+    UserId = user.Id,
+    IpAddress = httpContext.Connection.RemoteIpAddress?.ToString()
+});</code></pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Consulta de Audit Logs</h3>
+                        <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                            <pre><code>// GET /api/v1/audits?type=Security&userId=xxx&from=2024-01-01&to=2024-12-31
+// Retorna trail paginado e filtrável
+
+{
+  "data": [
+    {
+      "id": "...",
+      "userId": "john@acme.com",
+      "type": "Security",
+      "action": "Login",
+      "timestamp": "2024-01-20T10:30:00Z",
+      "ipAddress": "192.168.1.100"
+    }
+  ],
+  "totalCount": 150,
+  "page": 1,
+  "pageSize": 20
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">
+                            <i class="fas fa-lightbulb text-orange-500 mr-2"></i>Boas Práticas
+                        </h4>
+                        <ul class="text-sm text-gray-700 space-y-2">
+                            <li>
+                                <strong>Retenção:</strong> Configure políticas de retenção (ex: manter últimos 90 dias)
+                            </li>
+                            <li>
+                                <strong>GDPR:</strong> Considere anonimizar/deletar audit logs quando usuário é removido
+                            </li>
+                            <li>
+                                <strong>Performance:</strong> Audit logs em tabela separada com índices apropriados
+                            </li>
+                            <li>
+                                <strong>Segurança:</strong> Logs de auditoria devem ser imutáveis (append-only)
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Criando seu Próprio Módulo -->
+            <section class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-plus-circle text-indigo-600 mr-3"></i>Criando seu Próprio Módulo
+                </h2>
+
+                <div class="space-y-4">
+                    <p class="text-gray-700">
+                        Você pode criar seus próprios módulos seguindo o mesmo padrão:
+                    </p>
+
+                    <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                        <pre><code>// 1. Implementar IModule
+public class CatalogModule : IModule
+{
+    public string Name => "Catalog";
+    
+    public void ConfigureServices(IHostApplicationBuilder builder)
+    {
+        // Registrar DbContext, repositories, services...
+        builder.Services.AddDbContext&lt;CatalogDbContext&gt;(...);
+        builder.Services.AddScoped&lt;IProductRepository, ProductRepository&gt;();
+    }
+    
+    public void MapEndpoints(IEndpointRouteBuilder endpoints)
+    {
+        // Registrar todos os endpoints do módulo
+        endpoints.MapCreateProductEndpoint();
+        endpoints.MapGetProductsEndpoint();
+        endpoints.MapUpdateProductEndpoint();
+    }
+}
+
+// 2. Criar features em Features/v1/
+Features/v1/Products/
+├── CreateProduct/
+│   ├── CreateProductCommand.cs
+│   ├── CreateProductHandler.cs
+│   ├── CreateProductValidator.cs
+│   └── CreateProductEndpoint.cs
+└── GetProducts/
+    └── ...
+
+// 3. Adicionar ao Program.cs
+builder.AddModules(new[] { typeof(CatalogModule).Assembly });</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navegação -->
+            <div class="flex justify-between items-center mt-12 pt-8 border-t border-gray-200">
+                <a href="building-blocks.html" class="flex items-center text-primary hover:text-secondary transition duration-300">
+                    <i class="fas fa-arrow-left mr-2"></i>Anterior: Building Blocks
+                </a>
+                <a href="padroes-codigo.html" class="flex items-center text-primary hover:text-secondary transition duration-300">
+                    Próximo: Padrões de Código<i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">FullStackHero .NET 10 Starter Kit - Documentação Técnica</p>
+        </div>
+    </footer>
+</body>
+</html>

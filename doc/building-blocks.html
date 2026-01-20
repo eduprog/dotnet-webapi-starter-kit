@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Blocks - FullStackHero .NET 10</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#8b5cf6',
+                        accent: '#10b981',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navegação -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center space-x-4">
+                    <i class="fas fa-code text-3xl text-primary"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">FullStackHero</h1>
+                        <p class="text-sm text-gray-600">Building Blocks</p>
+                    </div>
+                </a>
+                <a href="index.html" class="text-primary hover:text-secondary transition duration-300">
+                    <i class="fas fa-home mr-2"></i>Voltar ao Início
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <div class="container mx-auto px-6 py-12">
+        <div class="max-w-5xl mx-auto">
+            <!-- Cabeçalho -->
+            <div class="bg-gradient-to-r from-secondary to-purple-600 text-white rounded-xl p-8 mb-8">
+                <h1 class="text-4xl font-bold mb-4">
+                    <i class="fas fa-cubes mr-3"></i>Building Blocks
+                </h1>
+                <p class="text-xl opacity-90">
+                    Componentes reutilizáveis que formam a fundação do framework
+                </p>
+            </div>
+
+            <!-- Introdução -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">O que são Building Blocks?</h2>
+                <p class="text-lg text-gray-700 mb-4">
+                    Building Blocks são componentes reutilizáveis e agnósticos de domínio que fornecem funcionalidades fundamentais para qualquer aplicação enterprise. Eles são empacotados como <strong>NuGet packages</strong> individuais e podem ser utilizados independentemente.
+                </p>
+                <div class="bg-purple-50 border-l-4 border-secondary p-6 rounded-r-lg">
+                    <p class="text-gray-700">
+                        <i class="fas fa-info-circle text-secondary mr-2"></i>
+                        <strong>Filosofia:</strong> Cada Building Block resolve um problema específico de infraestrutura (caching, persistência, jobs, etc.) e pode ser usado em qualquer projeto .NET, não apenas neste starter kit.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Core -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8" id="core">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-gem text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Core</h2>
+                        <p class="text-gray-600">Abstrações e primitivos do Domain-Driven Design</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Componentes Principais</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-cube text-primary mr-2"></i>Domain Entities
+                                </h4>
+                                <p class="text-sm text-gray-600 mb-2">Classes base para entidades de domínio</p>
+                                <code class="text-xs bg-gray-100 p-2 rounded block">BaseEntity, AuditableEntity, SoftDeleteEntity</code>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-bolt text-yellow-500 mr-2"></i>Domain Events
+                                </h4>
+                                <p class="text-sm text-gray-600 mb-2">Sistema de eventos de domínio</p>
+                                <code class="text-xs bg-gray-100 p-2 rounded block">IDomainEvent, DomainEventDispatcher</code>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>Exceptions
+                                </h4>
+                                <p class="text-sm text-gray-600 mb-2">Exceções customizadas tipadas</p>
+                                <code class="text-xs bg-gray-100 p-2 rounded block">NotFoundException, ValidationException, ConflictException</code>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-list text-accent mr-2"></i>Common Types
+                                </h4>
+                                <p class="text-sm text-gray-600 mb-2">Types compartilhados</p>
+                                <code class="text-xs bg-gray-100 p-2 rounded block">Result&lt;T&gt;, PagedList&lt;T&gt;, PaginationFilter</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                        <h4 class="text-white mb-3 font-semibold">Exemplo: BaseEntity</h4>
+                        <pre><code>public abstract class BaseEntity&lt;TId&gt;
+{
+    public TId Id { get; protected set; }
+    
+    private readonly List&lt;IDomainEvent&gt; _domainEvents = new();
+    public IReadOnlyList&lt;IDomainEvent&gt; DomainEvents => _domainEvents.AsReadOnly();
+    
+    protected void RaiseDomainEvent(IDomainEvent domainEvent)
+    {
+        _domainEvents.Add(domainEvent);
+    }
+    
+    public void ClearDomainEvents() => _domainEvents.Clear();
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Persistence -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8" id="persistence">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-database text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Persistence</h2>
+                        <p class="text-gray-600">Entity Framework Core + Specifications + Migrations</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Funcionalidades</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-accent mr-3 mt-1"></i>
+                                <div>
+                                    <strong>DbContext Base:</strong> FshDbContext com multi-tenancy, soft delete, auditing automático
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-accent mr-3 mt-1"></i>
+                                <div>
+                                    <strong>Repository Pattern:</strong> IRepository&lt;T&gt; genérico com CRUD + Specifications
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-accent mr-3 mt-1"></i>
+                                <div>
+                                    <strong>Specification Pattern:</strong> Queries reutilizáveis e testáveis
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-accent mr-3 mt-1"></i>
+                                <div>
+                                    <strong>Domain Events Dispatching:</strong> Interceptor que dispara eventos após SaveChanges
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-accent mr-3 mt-1"></i>
+                                <div>
+                                    <strong>Database Providers:</strong> PostgreSQL e SQL Server suportados
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                        <h4 class="text-white mb-3 font-semibold">Exemplo: Specification Pattern</h4>
+                        <pre><code>// Definir uma specification
+public class ActiveUsersSpec : Specification&lt;User&gt;
+{
+    public ActiveUsersSpec()
+    {
+        Query.Where(u => u.IsActive == true)
+             .OrderBy(u => u.CreatedOn);
+    }
+}
+
+// Usar em um repository
+var activeUsers = await repository
+    .ListAsync(new ActiveUsersSpec(), cancellationToken);
+
+// Specification com paginação
+public class UsersByRoleSpec : Specification&lt;User&gt;
+{
+    public UsersByRoleSpec(string role, int page, int pageSize)
+    {
+        Query.Where(u => u.Role == role)
+             .Skip((page - 1) * pageSize)
+             .Take(pageSize);
+    }
+}</code></pre>
+                    </div>
+
+                    <div class="bg-blue-50 border-l-4 border-primary p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">Configuração de Database</h4>
+                        <pre class="text-sm bg-white p-4 rounded overflow-x-auto"><code>{
+  "DatabaseOptions": {
+    "Provider": "postgres",  // ou "mssql"
+    "ConnectionString": "Host=localhost;Database=fsh;...",
+    "MigrationsAssembly": "Migrations.PostgreSQL"
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Caching -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8" id="caching">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-red-500 to-red-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-bolt text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Caching</h2>
+                        <p class="text-gray-600">Distributed cache com Redis + Memory cache</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Recursos</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-server text-red-500 mr-2"></i>Distributed Cache
+                                </h4>
+                                <p class="text-sm text-gray-600">
+                                    Redis para cache compartilhado entre instâncias da API
+                                </p>
+                            </div>
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-memory text-blue-500 mr-2"></i>Memory Cache
+                                </h4>
+                                <p class="text-sm text-gray-600">
+                                    In-memory cache local para dados frequentemente acessados
+                                </p>
+                            </div>
+                            <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-layer-group text-purple-500 mr-2"></i>Hybrid Cache
+                                </h4>
+                                <p class="text-sm text-gray-600">
+                                    Combina memory + distributed com fallback automático
+                                </p>
+                            </div>
+                            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-tags text-green-500 mr-2"></i>Cache Tagging
+                                </h4>
+                                <p class="text-sm text-gray-600">
+                                    Invalidação granular por tags/grupos
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                        <h4 class="text-white mb-3 font-semibold">Exemplo: ICacheService</h4>
+                        <pre><code>public interface ICacheService
+{
+    Task&lt;T?&gt; GetAsync&lt;T&gt;(string key, CancellationToken ct = default);
+    Task SetAsync&lt;T&gt;(string key, T value, TimeSpan? expiration = null, CancellationToken ct = default);
+    Task RemoveAsync(string key, CancellationToken ct = default);
+    Task RemoveByPrefixAsync(string prefix, CancellationToken ct = default);
+}
+
+// Uso
+var cachedUser = await _cacheService.GetAsync&lt;User&gt;($"user:{userId}");
+if (cachedUser is null)
+{
+    cachedUser = await _repository.GetByIdAsync(userId);
+    await _cacheService.SetAsync($"user:{userId}", cachedUser, TimeSpan.FromMinutes(30));
+}
+return cachedUser;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Jobs (Hangfire) -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8" id="jobs">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-clock text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Jobs</h2>
+                        <p class="text-gray-600">Background jobs com Hangfire</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-gray-700">
+                        Integração com <strong>Hangfire</strong> para jobs de background, agendados e recorrentes. Suporta PostgreSQL storage e dashboard de monitoramento.
+                    </p>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Tipos de Jobs</h3>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-play text-accent mr-2"></i>Fire-and-Forget
+                                </h4>
+                                <p class="text-sm text-gray-600">
+                                    Executados uma vez em background
+                                </p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-clock text-primary mr-2"></i>Delayed
+                                </h4>
+                                <p class="text-sm text-gray-600">
+                                    Agendados para executar após um delay
+                                </p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-redo text-secondary mr-2"></i>Recurring
+                                </h4>
+                                <p class="text-sm text-gray-600">
+                                    Jobs recorrentes (CRON expressions)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                        <h4 class="text-white mb-3 font-semibold">Exemplo: Enfileirar Jobs</h4>
+                        <pre><code>// Fire-and-forget
+BackgroundJob.Enqueue&lt;IEmailService&gt;(x => x.SendEmailAsync(email));
+
+// Delayed (executar daqui 1 hora)
+BackgroundJob.Schedule&lt;IReportService&gt;(
+    x => x.GenerateReportAsync(reportId),
+    TimeSpan.FromHours(1));
+
+// Recurring (todos os dias às 3am)
+RecurringJob.AddOrUpdate&lt;ICleanupService&gt;(
+    "cleanup-temp-files",
+    x => x.CleanupTempFilesAsync(),
+    "0 3 * * *");</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mailing -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8" id="mailing">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-envelope text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Mailing</h2>
+                        <p class="text-gray-600">Envio de emails com MailKit</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-gray-700">
+                        Serviço de email baseado em <strong>MailKit</strong> com suporte a templates Razor, anexos e envio assíncrono.
+                    </p>
+
+                    <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                        <h4 class="text-white mb-3 font-semibold">Exemplo: Envio de Email</h4>
+                        <pre><code>public interface IMailService
+{
+    Task SendAsync(MailRequest request, CancellationToken ct = default);
+}
+
+var mailRequest = new MailRequest
+{
+    To = new[] { "user@example.com" },
+    Subject = "Welcome to FSH!",
+    Body = "&lt;h1&gt;Welcome!&lt;/h1&gt;&lt;p&gt;Thank you for joining.&lt;/p&gt;",
+    Attachments = new[] { new Attachment("report.pdf", pdfBytes) }
+};
+
+await _mailService.SendAsync(mailRequest);</code></pre>
+                    </div>
+
+                    <div class="bg-blue-50 border-l-4 border-primary p-6 rounded-r-lg">
+                        <h4 class="font-bold text-gray-800 mb-2">Configuração de Email</h4>
+                        <pre class="text-sm bg-white p-4 rounded overflow-x-auto"><code>{
+  "MailOptions": {
+    "From": "noreply@fullstackhero.net",
+    "Host": "smtp.gmail.com",
+    "Port": 587,
+    "UserName": "your-email@gmail.com",
+    "Password": "your-app-password",
+    "EnableSsl": true
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Storage -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8" id="storage">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-pink-500 to-pink-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-folder text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Storage</h2>
+                        <p class="text-gray-600">Abstração para armazenamento de arquivos</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-gray-700">
+                        Abstração para armazenamento de arquivos que suporta múltiplos providers (Local, Azure Blob, AWS S3).
+                    </p>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Providers Suportados</h3>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-4 text-center">
+                                <i class="fas fa-hdd text-4xl text-gray-600 mb-2"></i>
+                                <h4 class="font-bold text-gray-800">Local Storage</h4>
+                                <p class="text-sm text-gray-600">Sistema de arquivos local</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 text-center">
+                                <i class="fab fa-microsoft text-4xl text-blue-600 mb-2"></i>
+                                <h4 class="font-bold text-gray-800">Azure Blob</h4>
+                                <p class="text-sm text-gray-600">Azure Blob Storage</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-4 text-center">
+                                <i class="fab fa-aws text-4xl text-orange-600 mb-2"></i>
+                                <h4 class="font-bold text-gray-800">AWS S3</h4>
+                                <p class="text-sm text-gray-600">Amazon S3 Storage</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                        <h4 class="text-white mb-3 font-semibold">Exemplo: IStorageService</h4>
+                        <pre><code>public interface IStorageService
+{
+    Task&lt;string&gt; UploadAsync(Stream stream, string fileName, string? contentType = null);
+    Task&lt;Stream&gt; DownloadAsync(string fileName);
+    Task DeleteAsync(string fileName);
+    Task&lt;bool&gt; ExistsAsync(string fileName);
+}
+
+// Upload de imagem
+using var stream = file.OpenReadStream();
+var url = await _storageService.UploadAsync(stream, "profile-pic.jpg", "image/jpeg");</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Web -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8" id="web">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-teal-500 to-teal-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-globe text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Web</h2>
+                        <p class="text-gray-600">Host wiring - Auth, CORS, OpenAPI, Rate Limiting, OTel</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-gray-700">
+                        Building block que configura toda a infraestrutura web da API através do método <code class="bg-gray-100 px-2 py-1 rounded">AddHeroPlatform()</code>.
+                    </p>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Recursos Configurados</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-shield-alt text-primary text-xl mt-1"></i>
+                                <div>
+                                    <strong>Authentication & Authorization</strong>
+                                    <p class="text-sm text-gray-600">JWT Bearer authentication, políticas de autorização</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-book text-secondary text-xl mt-1"></i>
+                                <div>
+                                    <strong>OpenAPI (Swagger/Scalar)</strong>
+                                    <p class="text-sm text-gray-600">Documentação interativa da API</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-tachometer-alt text-accent text-xl mt-1"></i>
+                                <div>
+                                    <strong>Rate Limiting</strong>
+                                    <p class="text-sm text-gray-600">Proteção contra abuse com políticas configuráveis</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-globe text-yellow-500 text-xl mt-1"></i>
+                                <div>
+                                    <strong>CORS</strong>
+                                    <p class="text-sm text-gray-600">Cross-Origin Resource Sharing configurável</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-chart-line text-red-500 text-xl mt-1"></i>
+                                <div>
+                                    <strong>OpenTelemetry</strong>
+                                    <p class="text-sm text-gray-600">Traces, metrics e logs via OTLP</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-heartbeat text-pink-500 text-xl mt-1"></i>
+                                <div>
+                                    <strong>Health Checks</strong>
+                                    <p class="text-sm text-gray-600">Endpoints /health e /health/ready</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-code text-indigo-500 text-xl mt-1"></i>
+                                <div>
+                                    <strong>API Versioning</strong>
+                                    <p class="text-sm text-gray-600">Versionamento via URL e header</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <i class="fas fa-exclamation-triangle text-orange-500 text-xl mt-1"></i>
+                                <div>
+                                    <strong>Exception Handling</strong>
+                                    <p class="text-sm text-gray-600">Middleware global de tratamento de exceções</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                        <h4 class="text-white mb-3 font-semibold">Exemplo: Configuração no Program.cs</h4>
+                        <pre><code>// No builder
+builder.AddHeroPlatform(o =>
+{
+    o.EnableCaching = true;
+    o.EnableMailing = true;
+    o.EnableJobs = true;
+});
+
+// No app
+app.UseHeroPlatform(p =>
+{
+    p.MapModules = true;
+    p.ServeStaticFiles = true;
+});</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Eventing -->
+            <section class="bg-white rounded-xl shadow-lg p-8 mb-8" id="eventing">
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br from-cyan-500 to-cyan-600 text-white rounded-lg p-4 mr-4">
+                        <i class="fas fa-satellite-dish text-3xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Eventing</h2>
+                        <p class="text-gray-600">Event bus para integração entre módulos</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-gray-700">
+                        Sistema de eventos de integração com suporte a RabbitMQ e implementação in-memory para testes.
+                    </p>
+
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Padrões</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-inbox text-primary mr-2"></i>Inbox Pattern
+                                </h4>
+                                <p class="text-sm text-gray-600">
+                                    Garante processamento exactly-once de eventos recebidos
+                                </p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-800 mb-2">
+                                    <i class="fas fa-paper-plane text-secondary mr-2"></i>Outbox Pattern
+                                </h4>
+                                <p class="text-sm text-gray-600">
+                                    Garante publicação transacional de eventos
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900 text-green-400 rounded-lg p-6 overflow-x-auto">
+                        <h4 class="text-white mb-3 font-semibold">Exemplo: Publicar e Consumir Eventos</h4>
+                        <pre><code>// Definir evento
+public record UserRegisteredEvent(Guid UserId, string Email) : IIntegrationEvent;
+
+// Publicar
+await _eventBus.PublishAsync(new UserRegisteredEvent(user.Id, user.Email));
+
+// Handler
+public class UserRegisteredEventHandler : IIntegrationEventHandler&lt;UserRegisteredEvent&gt;
+{
+    public async Task HandleAsync(UserRegisteredEvent @event, CancellationToken ct)
+    {
+        // Enviar email de boas-vindas, etc.
+        await _mailService.SendWelcomeEmailAsync(@event.Email, ct);
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navegação -->
+            <div class="flex justify-between items-center mt-12 pt-8 border-t border-gray-200">
+                <a href="visao-geral.html" class="flex items-center text-primary hover:text-secondary transition duration-300">
+                    <i class="fas fa-arrow-left mr-2"></i>Anterior: Visão Geral
+                </a>
+                <a href="modulos.html" class="flex items-center text-primary hover:text-secondary transition duration-300">
+                    Próximo: Módulos<i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">FullStackHero .NET 10 Starter Kit - Documentação Técnica</p>
+        </div>
+    </footer>
+</body>
+</html>
